@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "Shop"
 include(":app")
 include(":domain")
+include(":network")
