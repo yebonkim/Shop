@@ -2,6 +2,8 @@ plugins {
   alias(libs.plugins.android.library)
   alias(libs.plugins.kotlin.android)
   alias(libs.plugins.kotlin.serialization)
+  alias(libs.plugins.ksp)
+  alias(libs.plugins.hilt)
 }
 
 android {
@@ -37,4 +39,7 @@ dependencies {
   implementation(libs.ktor.negotiation)
   implementation(libs.ktor.json)
   implementation(libs.ktor.logging)
+
+  ksp(libs.hilt.compiler)
+  implementation(libs.hilt.android)
 }
