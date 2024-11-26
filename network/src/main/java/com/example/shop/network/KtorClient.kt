@@ -17,7 +17,8 @@ import io.ktor.http.URLProtocol
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-class KtorClient {
+internal object KtorClient {
+  private const val MUSINSA_HOST = "meta.musinsa.com"
 
   fun createClient(): HttpClient =
     HttpClient(Android) {
@@ -44,8 +45,4 @@ class KtorClient {
         level = LogLevel.ALL
       }
     }
-
-  companion object {
-    private const val MUSINSA_HOST = "meta.musinsa.com"
-  }
 }
