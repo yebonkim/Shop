@@ -23,3 +23,4 @@ rootProject.name = "Shop"
 include(":app")
 include(":domain")
 include(":network")
+include(":data")
