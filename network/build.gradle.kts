@@ -31,7 +31,7 @@ android {
 }
 
 dependencies {
-  implementation(libs.kotlin.serialization.json)
+  implementation(libs.kotlinx.serialization.json)
 
   implementation(libs.ktor.client)
   implementation(libs.ktor.negotiation)
