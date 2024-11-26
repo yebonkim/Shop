@@ -50,6 +50,7 @@ dependencies {
   implementation(libs.androidx.material3)
   implementation(project(":domain"))
   implementation(project(":data"))
+  implementation(project(":design-system"))
 
   ksp(libs.hilt.compiler)
   implementation(libs.hilt.android)
