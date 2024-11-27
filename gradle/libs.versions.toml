@@ -5,9 +5,9 @@ coreKtx = "1.10.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
-lifecycleRuntimeKtx = "2.6.1"
+lifecycleRuntime = "2.6.1"
 activityCompose = "1.8.0"
-composeBom = "2024.04.01"
+composeBom = "2024.09.03"
 kotlinxSerialization = "1.7.3"
 kotlinxCoroutine = "1.8.1"
 jetbrainsKotlinJvm = "2.0.0"
@@ -20,7 +20,8 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
-androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntime" }
+androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycleRuntime" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
@@ -32,7 +33,8 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
-kotlinx-coroutine = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinxCoroutine" }
+
+kotlinx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinxCoroutine" }
 
 ktor-client = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktor" }
 ktor-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
