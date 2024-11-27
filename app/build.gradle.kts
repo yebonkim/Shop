@@ -4,6 +4,8 @@ plugins {
   alias(libs.plugins.kotlin.compose)
   alias(libs.plugins.ksp)
   alias(libs.plugins.hilt)
+  alias(libs.plugins.kotlin.serialization)
+  alias(libs.plugins.kotlin.parcelize)
 }
 
 android {
@@ -43,6 +45,8 @@ dependencies {
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.lifecycle.runtime.ktx)
   implementation(libs.androidx.activity.compose)
+  implementation(libs.androidx.navigation.compose)
+
   implementation(platform(libs.androidx.compose.bom))
   implementation(libs.androidx.ui)
   implementation(libs.androidx.ui.graphics)
@@ -60,4 +64,6 @@ dependencies {
   implementation(libs.mavericks)
   implementation(libs.mavericks.hilt)
   implementation(libs.mavericks.compose)
+
+  implementation(libs.kotlinx.serialization.json)
 }
