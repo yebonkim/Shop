@@ -14,6 +14,7 @@ jetbrainsKotlinJvm = "2.0.0"
 ktor = "2.3.12"
 ksp = "2.0.0-1.0.22"
 hilt = "2.51.1"
+mavericks = "3.0.9"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -43,6 +44,9 @@ ktor-logging = { group = "io.ktor", name = "ktor-client-logging-jvm", version.re
 
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+mavericks = { group = "com.airbnb.android", name = "mavericks", version.ref = "mavericks"}
+mavericks-hilt = { group = "com.airbnb.android", name = "mavericks-hilt", version.ref = "mavericks"}
+mavericks-compose = { group = "com.airbnb.android", name = "mavericks-compose", version.ref = "mavericks"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

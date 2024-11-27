@@ -56,4 +56,8 @@ dependencies {
   implementation(libs.hilt.android)
 
   implementation(libs.kotlinx.coroutines)
+
+  implementation(libs.mavericks)
+  implementation(libs.mavericks.hilt)
+  implementation(libs.mavericks.compose)
 }
