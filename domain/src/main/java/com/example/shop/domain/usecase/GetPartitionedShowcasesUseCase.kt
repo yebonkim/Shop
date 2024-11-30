@@ -31,8 +31,8 @@ class GetPartitionedShowcasesUseCase(
         items = contents.items.take(partitionCount)
       ),
       footer = when {
-        hasMore -> null
-        else -> footer
+        hasMore -> footer
+        else -> null
       }
     )
   }
