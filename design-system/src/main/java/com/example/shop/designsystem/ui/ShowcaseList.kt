@@ -3,8 +3,11 @@ package com.example.shop.designsystem.ui
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.example.shop.domain.model.Contents
 import com.example.shop.domain.model.Showcase
 
 @Composable
@@ -26,6 +29,21 @@ fun ShowcaseList(
             onClickLink = { onClickHeaderLink(showcase.id) },
           )
         }
+      }
+      when (val content = showcase.contents) {
+        is Contents.BannerContents -> Unit
+
+        is Contents.GridContents -> {
+          grid(
+            items = content.items,
+          )
+        }
+
+        is Contents.ScrollContents -> Unit
+
+        is Contents.StyleContents -> Unit
+
+        is Contents.Unknown -> Unit
       }
       showcase.footer?.let { footer ->
         item(span = { GridItemSpan(3) }) {
