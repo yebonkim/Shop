@@ -1,5 +1,6 @@
 package com.example.shop.designsystem.ui.component
 
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,7 +24,7 @@ fun AsyncImage(
     contentDescription = contentDescription,
     modifier = modifier,
     contentScale = contentScale,
-    loading = placeholder(painter = ColorPainter(Color.LightGray)),
+    loading = placeholder(painter = ColorPainter(MaterialTheme.colorScheme.surface)),
     transition = CrossFade,
   )
 }
