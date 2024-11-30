@@ -1,23 +1,27 @@
 package com.example.shop.domain.model
 
 sealed interface Contents {
+  val items: List<ContentsItemType>
+
   data class BannerContents(
-    val items: List<ContentsItemType.Banner>
+    override val items: List<ContentsItemType.Banner>
   ) : Contents
 
   data class GridContents(
-    val items: List<ContentsItemType.Goods>,
-  ) : Contents
+    override val partitionInfo: PartitionInfo,
+    override val items: List<ContentsItemType.Goods>,
+  ) : Contents, Partitionable
 
   data class ScrollContents(
-    val items: List<ContentsItemType.Goods>
+    override val items: List<ContentsItemType.Goods>
   ) : Contents
 
   data class StyleContents(
-    val items: List<ContentsItemType.Style>
-  ) : Contents
+    override val partitionInfo: PartitionInfo,
+    override val items: List<ContentsItemType.Style>
+  ) : Contents, Partitionable
 
   data class Unknown(
-    val items: List<ContentsItemType>
+    override val items: List<ContentsItemType>
   ) : Contents
 }

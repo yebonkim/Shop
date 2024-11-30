@@ -5,6 +5,7 @@ import com.example.shop.domain.model.ContentsItemType
 import com.example.shop.domain.model.Footer
 import com.example.shop.domain.model.FooterType
 import com.example.shop.domain.model.Header
+import com.example.shop.domain.model.PartitionInfo
 import com.example.shop.domain.model.Showcase
 import com.example.shop.network.model.NetworkBanner
 import com.example.shop.network.model.NetworkContents
@@ -48,6 +49,7 @@ internal fun NetworkFooter.toDomain() = when (this) {
     title = title,
     iconUrl = iconUrl
   )
+
   is NetworkFooter.RefreshFooter -> Footer(
     type = FooterType.REFRESH,
     title = title,
@@ -59,15 +61,27 @@ internal fun NetworkContents.toDomain() = when (this) {
   is NetworkContents.BannerContents -> Contents.BannerContents(
     items = banners.map { it.toDomain() }
   )
+
   is NetworkContents.GridContents -> Contents.GridContents(
+    partitionInfo = PartitionInfo(
+      defaultCount = 6,
+      fetchCount = 3
+    ),
     items = goods.map { it.toDomain() }
   )
+
   is NetworkContents.ScrollContents -> Contents.ScrollContents(
     items = goods.map { it.toDomain() }
   )
+
   is NetworkContents.StyleContents -> Contents.StyleContents(
+    partitionInfo = PartitionInfo(
+      defaultCount = 6,
+      fetchCount = 3
+    ),
     items = styles.map { it.toDomain() }
   )
+
   is NetworkContents.Unknown -> Contents.Unknown(
     items = emptyList()
   )
