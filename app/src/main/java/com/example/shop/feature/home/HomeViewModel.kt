@@ -12,7 +12,6 @@ import com.example.shop.domain.model.Showcase
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import kotlinx.coroutines.flow.first
 
 data class HomeUiState(
   val showcases: Async<List<Showcase>> = Uninitialized,
@@ -29,7 +28,7 @@ class HomeViewModel @AssistedInject constructor(
 
   private fun loadData() {
     suspend {
-      showcaseRepository.load().first()
+      showcaseRepository.loadShowcases()
     }.execute { showcases ->
       copy(
         showcases = showcases,

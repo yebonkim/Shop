@@ -5,24 +5,30 @@ import com.example.shop.domain.model.Showcase
 import com.example.shop.network.ApiResponse
 import com.example.shop.network.ShowcaseNet
 import java.util.UUID
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
 
 class ShowcaseRepositoryImpl(
-  private val network: ShowcaseNet
+  private val network: ShowcaseNet,
+  private val ioDispatcher: CoroutineDispatcher
 ) : ShowcaseRepository {
+  private var cachedShowcases: List<Showcase> = listOf()
 
-  override fun load(): Flow<List<Showcase>> =
-    network.loadShowcase()
-      .map { response ->
-        when (response) {
-          is ApiResponse.Success -> {
-            response.data.data.map { it.toDomain(generateRandomId()) }
-          }
-
-          else -> emptyList()
+  override suspend fun loadShowcases(): List<Showcase> {
+    if (cachedShowcases.isNotEmpty()) {
+      return cachedShowcases
+    }
+    return withContext(ioDispatcher) {
+      when (val loaded = network.loadShowcase()) {
+        is ApiResponse.Success -> {
+          cachedShowcases = loaded.data.data.map { it.toDomain(generateRandomId()) }
+          cachedShowcases
         }
+
+        else -> emptyList()
       }
+    }
+  }
 
   private fun generateRandomId(): String = UUID.randomUUID().toString()
 }

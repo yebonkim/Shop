@@ -8,15 +8,22 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
+import kotlinx.coroutines.CoroutineDispatcher
 
 @Module
 @InstallIn(SingletonComponent::class)
 object RepositoryModule {
 
+  @Singleton
   @Provides
   fun provideShowcaseRepository(
-    showcaseNet: ShowcaseNet
+    showcaseNet: ShowcaseNet,
+    @IoDispatcher ioDispatcher: CoroutineDispatcher
   ): ShowcaseRepository {
-    return ShowcaseRepositoryImpl(showcaseNet)
+    return ShowcaseRepositoryImpl(
+      network = showcaseNet,
+      ioDispatcher = ioDispatcher
+    )
   }
 }
