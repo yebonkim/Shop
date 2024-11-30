@@ -9,9 +9,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.airbnb.mvrx.Loading
 import com.airbnb.mvrx.compose.mavericksViewModel
 import com.airbnb.mvrx.withState
 import com.example.shop.designsystem.ui.ShowcaseList
+import com.example.shop.designsystem.ui.screen.LoadingScreen
 
 @Composable
 fun HomeScreen() {
@@ -24,11 +26,18 @@ fun HomeScreen() {
       .fillMaxSize()
       .statusBarsPadding()
   ) { padding ->
-    ShowcaseList(
-      modifier = Modifier.padding(padding),
-      showcases = showcases ?: emptyList(),
-      onClickHeaderLink = { },
-      onClickFooter = { showcaseId -> viewModel.onClickFooter(showcaseId) }
-    )
+    when {
+      showcases != null -> {
+        ShowcaseList(
+          modifier = Modifier.padding(padding),
+          showcases = showcases,
+          onClickHeaderLink = { },
+          onClickFooter = { showcaseId -> viewModel.onClickFooter(showcaseId) }
+        )
+      }
+      state.showcases is Loading -> {
+        LoadingScreen(modifier = Modifier.padding(padding))
+      }
+    }
   }
 }
