@@ -2,4 +2,6 @@
   <string name="app_name">Shop</string>
   <string name="coupon">쿠폰</string>
   <string name="more">더보기</string>
+  <string name="percentage">%d%%</string>
+  <string name="priceFormat">%,d원</string>
 </resources>

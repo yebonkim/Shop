@@ -68,12 +68,12 @@ fun GoodsItem(
       verticalAlignment = Alignment.Bottom,
     ) {
       Text(
-        text = goods.price.toString(),
+        text = stringResource(R.string.priceFormat, goods.price),
         color = MaterialTheme.colorScheme.onSurface,
         style = MaterialTheme.typography.bodyLarge,
       )
       Text(
-        text = goods.saleRate.toString(),
+        text = stringResource(R.string.percentage, goods.saleRate),
         color = MaterialTheme.colorScheme.scrim,
         style = MaterialTheme.typography.labelLarge,
       )
