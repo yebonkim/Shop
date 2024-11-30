@@ -23,8 +23,19 @@ import kotlinx.coroutines.launch
 fun BannerPager(
   modifier: Modifier = Modifier,
   items: List<ContentsItemType.Banner>,
+  autoScroll: Boolean = true,
 ) {
-  val pagerState = rememberPagerState(pageCount = { items.size })
+  val pagerState = rememberPagerState(pageCount = { Int.MAX_VALUE })
+  val coroutineScope = rememberCoroutineScope()
+
+  LaunchedEffect(pagerState.currentPage) {
+    if (autoScroll) {
+      delay(3000L)
+      coroutineScope.launch {
+        pagerState.animateScrollToPage(pagerState.currentPage + 1)
+      }
+    }
+  }
 
   Box(modifier = modifier) {
     HorizontalPager(
@@ -36,7 +47,7 @@ fun BannerPager(
       )
     }
     PagerIndicator(
-      currentPage = pagerState.currentPage + 1,
+      currentPage = (pagerState.currentPage % items.size) + 1,
       pageCount = items.size,
       modifier = Modifier
         .align(Alignment.BottomEnd)
