@@ -2,6 +2,7 @@ package com.example.shop.di
 
 import com.example.shop.domain.ShowcaseRepository
 import com.example.shop.domain.usecase.GetPartitionedShowcasesUseCase
+import com.example.shop.domain.usecase.RefreshShowcaseUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,5 +16,12 @@ object UseCaseModule {
     showcaseRepository: ShowcaseRepository
   ): GetPartitionedShowcasesUseCase {
     return GetPartitionedShowcasesUseCase(showcaseRepository)
+  }
+
+  @Provides
+  fun provideRefreshShowcaseUseCase(
+    showcaseRepository: ShowcaseRepository
+  ): RefreshShowcaseUseCase {
+    return RefreshShowcaseUseCase(showcaseRepository)
   }
 }

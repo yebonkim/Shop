@@ -28,7 +28,7 @@ fun HomeScreen() {
       modifier = Modifier.padding(padding),
       showcases = showcases ?: emptyList(),
       onClickHeaderLink = { },
-      onClickFooter = { }
+      onClickFooter = { showcaseId -> viewModel.onClickFooter(showcaseId) }
     )
   }
 }

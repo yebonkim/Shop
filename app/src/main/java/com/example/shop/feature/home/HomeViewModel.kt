@@ -8,11 +8,15 @@ import com.airbnb.mvrx.MavericksViewModelFactory
 import com.airbnb.mvrx.Uninitialized
 import com.airbnb.mvrx.hilt.AssistedViewModelFactory
 import com.airbnb.mvrx.hilt.hiltMavericksViewModelFactory
+import com.example.shop.domain.model.FooterType
+import com.example.shop.domain.model.Partitionable
 import com.example.shop.domain.model.Showcase
 import com.example.shop.domain.usecase.GetPartitionedShowcasesUseCase
+import com.example.shop.domain.usecase.RefreshShowcaseUseCase
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.launch
 
 @Stable
 data class HomeUiState(
@@ -22,6 +26,7 @@ data class HomeUiState(
 class HomeViewModel @AssistedInject constructor(
   @Assisted initialState: HomeUiState,
   private val getPartitionedShowcasesUseCase: GetPartitionedShowcasesUseCase,
+  private val refreshShowcaseUseCase: RefreshShowcaseUseCase,
 ) : MavericksViewModel<HomeUiState>(initialState) {
 
   init {
@@ -45,6 +50,26 @@ class HomeViewModel @AssistedInject constructor(
   private fun List<Showcase>.itemSizeMap(): Map<String, Int> {
     return associate { showcase ->
       showcase.id to showcase.contents.items.size
+    }
+  }
+
+  fun onClickFooter(showcaseId: String) {
+    withState { state ->
+      state.showcases()?.let { showcases ->
+        val footerType = showcases.find { it.id == showcaseId }?.footer?.type ?: return@let
+
+        when (footerType) {
+          FooterType.MORE -> Unit
+          FooterType.REFRESH -> refresh(showcaseId)
+        }
+      }
+    }
+  }
+
+  private fun refresh(showcaseId: String) {
+    viewModelScope.launch {
+      refreshShowcaseUseCase(showcaseId)
+      loadData()
     }
   }
 
