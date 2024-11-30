@@ -20,6 +20,10 @@ fun HorizontalScroll(
     modifier = modifier.fillMaxWidth(),
     contentPadding = PaddingValues(12.dp),
   ) {
+    item(key = "emptyItem") {
+      // To prevent unintended scrolling when the first item changes
+    }
+
     items(
       items = items,
       key = { item -> item.linkUrl },
