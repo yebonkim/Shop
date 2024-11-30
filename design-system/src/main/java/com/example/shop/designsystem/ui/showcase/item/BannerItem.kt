@@ -11,6 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
@@ -23,17 +24,19 @@ import com.example.shop.domain.model.ContentsItemType
 @Composable
 fun BannerItem(
   modifier: Modifier = Modifier,
+  imageModifier: Modifier = Modifier,
   banner: ContentsItemType.Banner,
 ) {
   Box(
     modifier = modifier
       .fillMaxWidth()
       .aspectRatio(1f)
+      .clipToBounds()
   ) {
     AsyncImage(
       model = banner.thumbnailUrl,
       contentDescription = banner.title,
-      modifier = Modifier.fillMaxSize(),
+      modifier = imageModifier.fillMaxSize(),
       contentScale = ContentScale.Fit
     )
     Column(
