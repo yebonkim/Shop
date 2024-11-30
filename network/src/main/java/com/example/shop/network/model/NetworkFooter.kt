@@ -9,7 +9,7 @@ sealed interface NetworkFooter {
   @Serializable
   @SerialName("MORE")
   data class MoreFooter(
-    val title: String,
+    val title: String = "",
     @SerialName("iconURL")
     val iconUrl: String? = null,
   ): NetworkFooter
@@ -17,7 +17,7 @@ sealed interface NetworkFooter {
   @Serializable
   @SerialName("REFRESH")
   data class RefreshFooter(
-    val title: String,
+    val title: String = "",
     @SerialName("iconURL")
     val iconUrl: String? = null,
   ): NetworkFooter

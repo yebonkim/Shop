@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class NetworkHeader(
-  val title: String,
+  val title: String = "",
   @SerialName("iconURL")
   val iconUrl: String? = null,
   @SerialName("linkURL")

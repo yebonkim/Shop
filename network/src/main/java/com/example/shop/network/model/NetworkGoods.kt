@@ -5,12 +5,12 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class NetworkGoods(
-  val brandName: String,
-  val price: Int,
-  val saleRate: Int,
-  val hasCoupon: Boolean,
+  val brandName: String = "",
+  val price: Int = 0,
+  val saleRate: Int = 0,
+  val hasCoupon: Boolean = false,
   @SerialName("linkURL")
-  val linkUrl: String,
+  val linkUrl: String = "",
   @SerialName("thumbnailURL")
-  val thumbnailUrl: String
+  val thumbnailUrl: String = ""
 )

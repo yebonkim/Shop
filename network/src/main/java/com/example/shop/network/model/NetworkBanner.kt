@@ -5,11 +5,11 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class NetworkBanner(
-  val title: String,
-  val description: String,
-  val keyword: String,
+  val title: String = "",
+  val description: String = "",
+  val keyword: String = "",
   @SerialName("linkURL")
-  val linkUrl: String,
+  val linkUrl: String = "",
   @SerialName("thumbnailURL")
-  val thumbnailUrl: String
+  val thumbnailUrl: String = ""
 )

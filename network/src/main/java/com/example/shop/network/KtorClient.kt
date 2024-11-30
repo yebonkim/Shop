@@ -36,6 +36,7 @@ internal object KtorClient {
         json(
           Json {
             ignoreUnknownKeys = true
+            coerceInputValues = true
             isLenient = true
           }
         )
