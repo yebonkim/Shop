@@ -2,18 +2,22 @@ package com.example.shop.domain.model
 
 sealed interface Contents {
   data class BannerContents(
-    val list: List<Banner>
+    val items: List<ContentsItemType.Banner>
   ) : Contents
 
   data class GridContents(
-    val list: List<Goods>
+    val items: List<ContentsItemType.Goods>,
   ) : Contents
 
   data class ScrollContents(
-    val list: List<Goods>
+    val items: List<ContentsItemType.Goods>
   ) : Contents
 
   data class StyleContents(
-    val list: List<Style>
+    val items: List<ContentsItemType.Style>
+  ) : Contents
+
+  data class Unknown(
+    val items: List<ContentsItemType>
   ) : Contents
 }

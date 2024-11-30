@@ -1,13 +1,11 @@
 package com.example.shop.data
 
-import com.example.shop.domain.model.Banner
 import com.example.shop.domain.model.Contents
+import com.example.shop.domain.model.ContentsItemType
 import com.example.shop.domain.model.Footer
 import com.example.shop.domain.model.FooterType
-import com.example.shop.domain.model.Goods
 import com.example.shop.domain.model.Header
 import com.example.shop.domain.model.Showcase
-import com.example.shop.domain.model.Style
 import com.example.shop.network.model.NetworkBanner
 import com.example.shop.network.model.NetworkContents
 import com.example.shop.network.model.NetworkFooter
@@ -16,7 +14,7 @@ import com.example.shop.network.model.NetworkHeader
 import com.example.shop.network.model.NetworkShowcase
 import com.example.shop.network.model.NetworkStyle
 
-internal fun NetworkBanner.toDomain() = Banner(
+internal fun NetworkBanner.toDomain() = ContentsItemType.Banner(
   title = title,
   description = description,
   keyword = keyword,
@@ -24,7 +22,7 @@ internal fun NetworkBanner.toDomain() = Banner(
   thumbnailUrl = thumbnailUrl
 )
 
-internal fun NetworkGoods.toDomain() = Goods(
+internal fun NetworkGoods.toDomain() = ContentsItemType.Goods(
   brandName = brandName,
   price = price,
   saleRate = saleRate,
@@ -33,7 +31,7 @@ internal fun NetworkGoods.toDomain() = Goods(
   thumbnailUrl = thumbnailUrl
 )
 
-internal fun NetworkStyle.toDomain() = Style(
+internal fun NetworkStyle.toDomain() = ContentsItemType.Style(
   linkUrl = linkUrl,
   thumbnailUrl = thumbnailUrl
 )
@@ -58,11 +56,21 @@ internal fun NetworkFooter.toDomain() = when (this) {
 }
 
 internal fun NetworkContents.toDomain() = when (this) {
-  is NetworkContents.BannerContents -> Contents.BannerContents(banners.map { it.toDomain() })
-  is NetworkContents.GridContents -> Contents.GridContents(goods.map { it.toDomain() })
-  is NetworkContents.ScrollContents -> Contents.ScrollContents(goods.map { it.toDomain() })
-  is NetworkContents.StyleContents -> Contents.StyleContents(styles.map { it.toDomain() })
-  is NetworkContents.Unknown -> throw IllegalArgumentException("Unknown contents type")
+  is NetworkContents.BannerContents -> Contents.BannerContents(
+    items = banners.map { it.toDomain() }
+  )
+  is NetworkContents.GridContents -> Contents.GridContents(
+    items = goods.map { it.toDomain() }
+  )
+  is NetworkContents.ScrollContents -> Contents.ScrollContents(
+    items = goods.map { it.toDomain() }
+  )
+  is NetworkContents.StyleContents -> Contents.StyleContents(
+    items = styles.map { it.toDomain() }
+  )
+  is NetworkContents.Unknown -> Contents.Unknown(
+    items = emptyList()
+  )
 }
 
 internal fun NetworkShowcase.toDomain(id: String) = Showcase(
