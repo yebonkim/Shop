@@ -53,7 +53,11 @@ fun ShowcaseList(
           }
         }
 
-        is Contents.StyleContents -> Unit
+        is Contents.StyleContents -> {
+          styleGrid(
+            items = content.items,
+          )
+        }
 
         is Contents.Unknown -> Unit
       }
