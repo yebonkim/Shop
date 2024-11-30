@@ -62,6 +62,7 @@ internal fun NetworkContents.toDomain() = when (this) {
   is NetworkContents.GridContents -> Contents.GridContents(goods.map { it.toDomain() })
   is NetworkContents.ScrollContents -> Contents.ScrollContents(goods.map { it.toDomain() })
   is NetworkContents.StyleContents -> Contents.StyleContents(styles.map { it.toDomain() })
+  is NetworkContents.Unknown -> throw IllegalArgumentException("Unknown contents type")
 }
 
 internal fun NetworkShowcase.toDomain(id: String) = Showcase(
