@@ -9,11 +9,11 @@ class GetPartitionedShowcasesUseCase(
   private val showcaseRepository: ShowcaseRepository,
 ) {
   suspend operator fun invoke(
-    partitionCounts: Map<String, Int>,
+    idToPartitionCount: Map<String, Int>,
   ): List<Showcase> {
     return showcaseRepository.loadShowcases().map { showcase ->
       if (showcase.contents is Partitionable) {
-        showcase.partition(partitionCounts)
+        showcase.partition(idToPartitionCount)
       } else {
         showcase
       }
@@ -21,9 +21,9 @@ class GetPartitionedShowcasesUseCase(
   }
 
   private fun Showcase.partition(
-    partitionCounts: Map<String, Int>,
+    idToPartitionCount: Map<String, Int>,
   ): Showcase {
-    val partitionCount = partitionCounts[id] ?: (contents as Partitionable).partitionInfo.defaultCount
+    val partitionCount = idToPartitionCount[id] ?: (contents as Partitionable).partitionInfo.defaultCount
     val hasMore = partitionCount < contents.items.size
 
     return this.copy(
