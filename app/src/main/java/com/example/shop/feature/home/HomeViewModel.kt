@@ -59,9 +59,24 @@ class HomeViewModel @AssistedInject constructor(
         val footerType = showcases.find { it.id == showcaseId }?.footer?.type ?: return@let
 
         when (footerType) {
-          FooterType.MORE -> Unit
+          FooterType.MORE -> loadMore(showcaseId)
           FooterType.REFRESH -> refresh(showcaseId)
         }
+      }
+    }
+  }
+
+  private fun loadMore(showcaseId: String) {
+    withState { state ->
+      val showcases = state.showcases() ?: return@withState
+      val contents = showcases.find { it.id == showcaseId }?.contents ?: return@withState
+
+      if (contents is Partitionable) {
+        val partitionInfos = showcases.itemSizeMap().toMutableMap().apply {
+          this[showcaseId] = contents.items.size + contents.partitionInfo.fetchCount
+        }
+
+        loadData(partitionInfos)
       }
     }
   }
