@@ -39,7 +39,13 @@ fun ShowcaseList(
           )
         }
 
-        is Contents.ScrollContents -> Unit
+        is Contents.ScrollContents -> {
+          item(span = { GridItemSpan(3) }) {
+            HorizontalScroll(
+              items = content.items,
+            )
+          }
+        }
 
         is Contents.StyleContents -> Unit
 
