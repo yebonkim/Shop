@@ -30,5 +30,9 @@ class ShowcaseRepositoryImpl(
     }
   }
 
+  override suspend fun update(showcases: List<Showcase>) {
+    cachedShowcases = showcases
+  }
+
   private fun generateRandomId(): String = UUID.randomUUID().toString()
 }
