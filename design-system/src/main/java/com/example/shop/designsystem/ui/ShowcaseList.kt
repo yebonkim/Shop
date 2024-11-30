@@ -31,7 +31,13 @@ fun ShowcaseList(
         }
       }
       when (val content = showcase.contents) {
-        is Contents.BannerContents -> Unit
+        is Contents.BannerContents -> {
+          item(span = { GridItemSpan(3) }) {
+            BannerPager(
+              items = content.items,
+            )
+          }
+        }
 
         is Contents.GridContents -> {
           grid(
