@@ -24,7 +24,6 @@ fun HomeScreen() {
   Scaffold(
     modifier = Modifier
       .fillMaxSize()
-      .statusBarsPadding()
   ) { padding ->
     when {
       showcases != null -> {
