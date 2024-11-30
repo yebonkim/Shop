@@ -1,4 +1,4 @@
-package com.example.shop.designsystem.ui.item
+package com.example.shop.designsystem.ui.showcase.item
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

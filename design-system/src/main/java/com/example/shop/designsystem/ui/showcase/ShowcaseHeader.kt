@@ -1,4 +1,4 @@
-package com.example.shop.designsystem.ui
+package com.example.shop.designsystem.ui.showcase
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -15,8 +15,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
-import com.bumptech.glide.integration.compose.GlideImage
 import com.example.shop.designsystem.R
 import com.example.shop.designsystem.theme.ShopTheme
 import com.example.shop.designsystem.ui.component.AsyncImage

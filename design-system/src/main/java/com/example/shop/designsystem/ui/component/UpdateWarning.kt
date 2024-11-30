@@ -1,4 +1,4 @@
-package com.example.shop.designsystem.ui
+package com.example.shop.designsystem.ui.component
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme

@@ -1,12 +1,15 @@
-package com.example.shop.designsystem.ui
+package com.example.shop.designsystem.ui.showcase
 
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import com.example.shop.designsystem.ui.component.UpdateWarning
+import com.example.shop.designsystem.ui.showcase.layout.BannerPager
+import com.example.shop.designsystem.ui.showcase.layout.HorizontalScroll
+import com.example.shop.designsystem.ui.showcase.layout.goodsGrid
+import com.example.shop.designsystem.ui.showcase.layout.styleGrid
 import com.example.shop.domain.model.Contents
 import com.example.shop.domain.model.Showcase
 
@@ -40,7 +43,7 @@ fun ShowcaseList(
         }
 
         is Contents.GridContents -> {
-          grid(
+          goodsGrid(
             items = content.items,
           )
         }

@@ -12,8 +12,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.airbnb.mvrx.Loading
 import com.airbnb.mvrx.compose.mavericksViewModel
 import com.airbnb.mvrx.withState
-import com.example.shop.designsystem.ui.ShowcaseList
-import com.example.shop.designsystem.ui.screen.LoadingScreen
+import com.example.shop.designsystem.ui.showcase.ShowcaseList
+import com.example.shop.designsystem.ui.component.LoadingProgressIndicator
 
 @Composable
 fun HomeScreen() {
@@ -36,7 +36,7 @@ fun HomeScreen() {
         )
       }
       state.showcases is Loading -> {
-        LoadingScreen(modifier = Modifier.padding(padding))
+        LoadingProgressIndicator(modifier = Modifier.padding(padding))
       }
     }
   }

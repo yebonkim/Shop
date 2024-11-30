@@ -1,4 +1,4 @@
-package com.example.shop.designsystem.ui
+package com.example.shop.designsystem.ui.showcase.layout
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -14,7 +14,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.shop.designsystem.ui.item.BannerItem
+import com.example.shop.designsystem.ui.showcase.item.BannerItem
 import com.example.shop.domain.model.ContentsItemType
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

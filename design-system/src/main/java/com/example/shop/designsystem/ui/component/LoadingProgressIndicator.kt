@@ -1,4 +1,4 @@
-package com.example.shop.designsystem.ui.screen
+package com.example.shop.designsystem.ui.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun LoadingScreen(
+fun LoadingProgressIndicator(
   modifier: Modifier
 ) {
   Box(

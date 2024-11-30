@@ -1,7 +1,6 @@
-package com.example.shop.designsystem.ui
+package com.example.shop.designsystem.ui.showcase
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -18,8 +17,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
-import com.bumptech.glide.integration.compose.GlideImage
 import com.example.shop.designsystem.theme.ShopTheme
 import com.example.shop.designsystem.ui.component.AsyncImage
 import com.example.shop.domain.model.Footer
