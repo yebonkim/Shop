@@ -4,4 +4,5 @@
   <string name="more">더보기</string>
   <string name="percentage">%d%%</string>
   <string name="priceFormat">%,d원</string>
+  <string name="request_update">새 기능을 위해 업데이트 해주세요.</string>
 </resources>

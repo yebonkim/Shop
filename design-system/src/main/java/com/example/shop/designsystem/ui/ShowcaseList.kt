@@ -59,7 +59,11 @@ fun ShowcaseList(
           )
         }
 
-        is Contents.Unknown -> Unit
+        is Contents.Unknown -> {
+          item(span = { GridItemSpan(3) }) {
+            UpdateWarning()
+          }
+        }
       }
       showcase.footer?.let { footer ->
         item(span = { GridItemSpan(3) }) {
