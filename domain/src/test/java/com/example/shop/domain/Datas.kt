@@ -2,16 +2,18 @@ package com.example.shop.domain
 
 import com.example.shop.domain.model.Contents
 import com.example.shop.domain.model.ContentsItemType
+import com.example.shop.domain.model.Footer
+import com.example.shop.domain.model.FooterType
 import com.example.shop.domain.model.PartitionInfo
 import com.example.shop.domain.model.Showcase
 
-val showcaseWith20ContentItem = Showcase(
+val partitionableShowcase = Showcase(
   id = "1",
   header = null,
   contents = Contents.StyleContents(
     partitionInfo = PartitionInfo(
-      defaultCount = 6,
-      fetchCount = 6,
+      defaultCount = 2,
+      fetchCount = 2,
     ),
     items = listOf(
       ContentsItemType.Style(
@@ -96,5 +98,58 @@ val showcaseWith20ContentItem = Showcase(
       ),
     )
   ),
-  footer = null,
+  footer = Footer(
+    type = FooterType.MORE,
+    title = "More",
+  ),
+)
+
+val emptyPartitionableShowcase = Showcase(
+  id = "2",
+  header = null,
+  contents = Contents.StyleContents(
+    partitionInfo = PartitionInfo(
+      defaultCount = 2,
+      fetchCount = 2,
+    ),
+    items = emptyList(),
+  ),
+  footer = Footer(
+    type = FooterType.MORE,
+    title = "More",
+  ),
+)
+
+val unpartitionableShowcase = Showcase(
+  id = "3",
+  header = null,
+  contents = Contents.BannerContents(
+    items = listOf(
+      ContentsItemType.Banner(
+        title = "Banner1",
+        description = "Banner1 description",
+        keyword = "Banner1 keyword",
+        linkUrl = "https://example.com/banner1",
+        thumbnailUrl = "https://example.com/banner1.jpg",
+      ),
+      ContentsItemType.Banner(
+        title = "Banner2",
+        description = "Banner2 description",
+        keyword = "Banner2 keyword",
+        linkUrl = "https://example.com/banner2",
+        thumbnailUrl = "https://example.com/banner2.jpg",
+      ),
+      ContentsItemType.Banner(
+        title = "Banner3",
+        description = "Banner3 description",
+        keyword = "Banner3 keyword",
+        linkUrl = "https://example.com/banner3",
+        thumbnailUrl = "https://example.com/banner3.jpg",
+      ),
+    )
+  ),
+  footer = Footer(
+    type = FooterType.REFRESH,
+    title = "Refresh",
+  ),
 )
