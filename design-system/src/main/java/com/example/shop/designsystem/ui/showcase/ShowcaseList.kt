@@ -1,6 +1,5 @@
 package com.example.shop.designsystem.ui.showcase
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -38,23 +37,23 @@ fun ShowcaseList(
         is Contents.BannerContents -> {
           item(span = { GridItemSpan(3) }) {
             BannerPager(
-              items = content.items,
-              onClickItem = { onClickLink(it.linkUrl) },
+              banners = content.items,
+              onClickBanner = { onClickLink(it.linkUrl) },
             )
           }
         }
 
         is Contents.GridContents -> {
           goodsGrid(
-            items = content.items,
-            onClickItem = { onClickLink(it.linkUrl) },
+            goodsList = content.items,
+            onClickGoods = { onClickLink(it.linkUrl) },
           )
         }
 
         is Contents.ScrollContents -> {
           item(span = { GridItemSpan(3) }) {
             HorizontalScroll(
-              items = content.items,
+              goodsList = content.items,
               onClickItem = { onClickLink(it.linkUrl) },
             )
           }
@@ -62,8 +61,8 @@ fun ShowcaseList(
 
         is Contents.StyleContents -> {
           styleGrid(
-            items = content.items,
-            onClickItem = { onClickLink(it.linkUrl) },
+            styles = content.items,
+            onClickStyle = { onClickLink(it.linkUrl) },
           )
         }
 

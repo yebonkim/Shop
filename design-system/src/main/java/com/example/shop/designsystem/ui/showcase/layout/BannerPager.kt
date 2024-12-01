@@ -24,9 +24,9 @@ import kotlinx.coroutines.launch
 @Composable
 fun BannerPager(
   modifier: Modifier = Modifier,
-  items: List<ContentsItemType.Banner>,
+  banners: List<ContentsItemType.Banner>,
   autoScroll: Boolean = true,
-  onClickItem: (ContentsItemType.Banner) -> Unit = {},
+  onClickBanner: (ContentsItemType.Banner) -> Unit = {},
 ) {
   val pagerState = rememberPagerState(pageCount = { Int.MAX_VALUE })
   val coroutineScope = rememberCoroutineScope()
@@ -47,13 +47,13 @@ fun BannerPager(
     ) { pageIdx ->
       BannerItem(
         imageModifier = Modifier.parallax(pagerState, pageIdx),
-        banner = items[pageIdx % items.size],
-        onClick = { onClickItem(items[pageIdx % items.size]) },
+        banner = banners[pageIdx % banners.size],
+        onClick = { onClickBanner(banners[pageIdx % banners.size]) },
       )
     }
     PagerIndicator(
-      currentPage = (pagerState.currentPage % items.size) + 1,
-      pageCount = items.size,
+      currentPage = (pagerState.currentPage % banners.size) + 1,
+      pageCount = banners.size,
       modifier = Modifier
         .align(Alignment.BottomEnd)
         .padding(horizontal = 20.dp, vertical = 8.dp)

@@ -1,56 +1,44 @@
 package com.example.shop.designsystem.ui.showcase.layout
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyGridScope
-import androidx.compose.foundation.lazy.grid.itemsIndexed
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.lazy.grid.items
 import com.example.shop.designsystem.ui.showcase.item.StyleItem
 import com.example.shop.domain.model.ContentsItemType
 
 fun LazyGridScope.styleGrid(
-  items: List<ContentsItemType.Style>,
-  onClickItem: (ContentsItemType.Style) -> Unit,
+  styles: List<ContentsItemType.Style>,
+  onClickStyle: (ContentsItemType.Style) -> Unit,
 ) {
-  val modifier = Modifier
-    .aspectRatio(0.8f)
-    .padding(2.dp)
-
   HighlightGrid(
-    items = items.take(3),
-    itemModifier = modifier,
-    onClickItem = onClickItem,
+    styles = styles.take(3),
+    onClickStyle = onClickStyle,
   )
 
-  itemsIndexed(
-    items = items.drop(3),
-    key = { _, style -> style.linkUrl },
-    contentType = { _, _ -> "StyleItem" },
-  ) { idx, item ->
+  items(
+    items = styles.drop(3),
+    key = { style -> style.linkUrl },
+    contentType = { _ -> "StyleItem" },
+  ) { style ->
     StyleItem(
-      style = item,
-      modifier = modifier,
-      onClick = { onClickItem(item) },
+      style = style,
+      onClick = { onClickStyle(style) },
     )
   }
 }
 
 private fun LazyGridScope.HighlightGrid(
-  items: List<ContentsItemType.Style>,
-  itemModifier: Modifier,
-  onClickItem: (ContentsItemType.Style) -> Unit,
+  styles: List<ContentsItemType.Style>,
+  onClickStyle: (ContentsItemType.Style) -> Unit,
 ) {
-  items.firstOrNull()?.let { style ->
+  styles.firstOrNull()?.let { style ->
     item(
       span = { GridItemSpan(2) },
     ) {
       StyleItem(
         style = style,
-        modifier = itemModifier,
-        onClick = { onClickItem(style) },
+        onClick = { onClickStyle(style) },
       )
     }
   }
@@ -59,11 +47,10 @@ private fun LazyGridScope.HighlightGrid(
     span = { GridItemSpan(1) },
   ) {
     Column {
-      items.drop(1).take(2).forEach { style ->
+      styles.drop(1).take(2).forEach { style ->
         StyleItem(
           style = style,
-          modifier = itemModifier,
-          onClick = { onClickItem(style) },
+          onClick = { onClickStyle(style) },
         )
       }
     }

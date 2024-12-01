@@ -14,7 +14,7 @@ import com.example.shop.domain.model.ContentsItemType
 @Composable
 fun HorizontalScroll(
   modifier: Modifier = Modifier,
-  items: List<ContentsItemType.Goods>,
+  goodsList: List<ContentsItemType.Goods>,
   onClickItem: (ContentsItemType.Goods) -> Unit = {},
 ) {
   LazyRow(
@@ -26,13 +26,13 @@ fun HorizontalScroll(
     }
 
     items(
-      items = items,
-      key = { item -> item.linkUrl },
-    ) { item ->
+      items = goodsList,
+      key = { goods -> goods.linkUrl },
+    ) { goods ->
       GoodsItem(
         modifier = Modifier.padding(horizontal = 2.dp),
-        goods = item,
-        onClick = { onClickItem(item) },
+        goods = goods,
+        onClick = { onClickItem(goods) },
       )
     }
   }

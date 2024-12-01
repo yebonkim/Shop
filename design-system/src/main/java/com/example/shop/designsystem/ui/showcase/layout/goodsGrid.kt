@@ -9,18 +9,18 @@ import com.example.shop.designsystem.ui.showcase.item.GoodsItem
 import com.example.shop.domain.model.ContentsItemType
 
 fun LazyGridScope.goodsGrid(
-  items: List<ContentsItemType.Goods>,
-  onClickItem: (ContentsItemType.Goods) -> Unit = {},
+  goodsList: List<ContentsItemType.Goods>,
+  onClickGoods: (ContentsItemType.Goods) -> Unit = {},
 ) {
   items(
-    items = items,
-    key = { item -> item.linkUrl },
-    contentType = { item -> item::class.java.simpleName }
-  ) { item ->
+    items = goodsList,
+    key = { goods -> goods.linkUrl },
+    contentType = { goods -> goods::class.java.simpleName }
+  ) { goods ->
     GoodsItem(
       modifier = Modifier.padding(2.dp),
-      goods = item,
-      onClick = { onClickItem(item) },
+      goods = goods,
+      onClick = { onClickGoods(goods) },
     )
   }
 }
