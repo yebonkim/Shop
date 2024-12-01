@@ -38,11 +38,6 @@ android {
   buildFeatures {
     compose = true
   }
-  testOptions {
-    unitTests.all {
-      it.useJUnitPlatform()
-    }
-  }
 }
 
 dependencies {
@@ -71,10 +66,11 @@ dependencies {
   implementation(libs.mavericks)
   implementation(libs.mavericks.hilt)
   implementation(libs.mavericks.compose)
+  implementation(libs.mavericks.testing)
 
-  testImplementation(libs.kotest.runner.junit5)
-  testImplementation(libs.kotest.assersions.core)
-  testImplementation(libs.kotest.property)
+  testImplementation(libs.junit)
+
+  testImplementation(libs.mockk)
 
   implementation(libs.kotlinx.serialization.json)
 }
