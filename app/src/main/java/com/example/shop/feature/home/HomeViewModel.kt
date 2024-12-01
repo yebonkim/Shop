@@ -16,6 +16,7 @@ import com.example.shop.domain.usecase.RefreshShowcaseUseCase
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 
 @Stable
@@ -23,11 +24,17 @@ data class HomeUiState(
   val showcases: Async<List<Showcase>> = Uninitialized,
 ) : MavericksState
 
+sealed interface HomeUiEffect {
+  data class NavigateToDetail(val url: String) : HomeUiEffect
+}
+
 class HomeViewModel @AssistedInject constructor(
   @Assisted initialState: HomeUiState,
   private val getPartitionedShowcasesUseCase: GetPartitionedShowcasesUseCase,
   private val refreshShowcaseUseCase: RefreshShowcaseUseCase,
 ) : MavericksViewModel<HomeUiState>(initialState) {
+
+  val uiEffect: Channel<HomeUiEffect> = Channel<HomeUiEffect>()
 
   init {
     loadData()
@@ -63,6 +70,14 @@ class HomeViewModel @AssistedInject constructor(
           FooterType.REFRESH -> refresh(showcaseId)
         }
       }
+    }
+  }
+
+  fun onClickLink(url: String?) {
+    if (url.isNullOrEmpty()) return
+
+    viewModelScope.launch {
+      uiEffect.send(HomeUiEffect.NavigateToDetail(url))
     }
   }
 
