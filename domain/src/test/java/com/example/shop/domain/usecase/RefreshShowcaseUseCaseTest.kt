@@ -1,21 +1,34 @@
 package com.example.shop.domain.usecase
 
-import com.example.shop.domain.FakeShowcaseRepository
 import com.example.shop.domain.Fixtures
+import com.example.shop.domain.ShowcaseRepository
+import com.example.shop.domain.model.Showcase
 import io.kotest.core.spec.IsolationMode
+import io.kotest.core.spec.Spec
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
+import io.mockk.coEvery
+import io.mockk.mockk
 
 class RefreshShowcaseUseCaseTest : BehaviorSpec() {
   override fun isolationMode(): IsolationMode = IsolationMode.InstancePerLeaf
 
-  private val repository: FakeShowcaseRepository = FakeShowcaseRepository(
-    listOf(Fixtures.refreshableShowcase)
-  )
+  private var repositoryData = listOf(Fixtures.refreshableShowcase)
+  private val repository: ShowcaseRepository = mockk()
   private val useCase: RefreshShowcaseUseCase = RefreshShowcaseUseCase(
     showcaseRepository = repository
   )
+
+  override suspend fun beforeSpec(spec: Spec) {
+    super.beforeSpec(spec)
+
+    coEvery { repository.loadShowcases() } answers { repositoryData }
+    coEvery { repository.update(any()) } answers {
+      val showcases = firstArg<List<Showcase>>()
+      repositoryData = showcases
+    }
+  }
 
   init {
     Given("showcaseId가 주어졌을 때") {

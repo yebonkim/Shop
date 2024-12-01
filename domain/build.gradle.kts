@@ -25,4 +25,6 @@ dependencies {
   testImplementation(libs.kotest.runner.junit5)
   testImplementation(libs.kotest.assersions.core)
   testImplementation(libs.kotest.property)
+
+  testImplementation(libs.mockk)
 }

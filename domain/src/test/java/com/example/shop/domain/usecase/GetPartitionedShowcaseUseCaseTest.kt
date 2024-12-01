@@ -1,24 +1,39 @@
 package com.example.shop.domain.usecase
 
-import com.example.shop.domain.FakeShowcaseRepository
 import com.example.shop.domain.Fixtures
+import com.example.shop.domain.ShowcaseRepository
 import com.example.shop.domain.model.Contents
+import com.example.shop.domain.model.Showcase
 import io.kotest.core.spec.IsolationMode
+import io.kotest.core.spec.Spec
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
+import io.mockk.coEvery
+import io.mockk.mockk
 
 class GetPartitionedShowcaseUseCaseTest : BehaviorSpec() {
   override fun isolationMode(): IsolationMode = IsolationMode.InstancePerLeaf
 
-  private val repository: FakeShowcaseRepository = FakeShowcaseRepository()
+  private var repositoryData = emptyList<Showcase>()
+  private val repository: ShowcaseRepository = mockk()
   private val useCase: GetPartitionedShowcasesUseCase = GetPartitionedShowcasesUseCase(
     showcaseRepository = repository
   )
 
+  override suspend fun beforeSpec(spec: Spec) {
+    super.beforeSpec(spec)
+
+    coEvery { repository.loadShowcases() } answers { repositoryData }
+    coEvery { repository.update(any()) } answers {
+      val showcases = firstArg<List<Showcase>>()
+      repositoryData = showcases
+    }
+  }
+
   init {
     Given("repository에 데이터가 없는 경우") {
-      repository.data = emptyList()
+      repositoryData = emptyList()
 
       When("빈 idToPartitionCount 가 주어졌을 때") {
         val idToPartitionCount: Map<String, Int> = emptyMap()
@@ -41,7 +56,7 @@ class GetPartitionedShowcaseUseCaseTest : BehaviorSpec() {
       val partitionableContents: Contents.StyleContents =
         Fixtures.partitionableShowcase.contents as Contents.StyleContents
 
-      repository.data = listOf(Fixtures.unpartitionableShowcase, Fixtures.partitionableShowcase)
+      repositoryData = listOf(Fixtures.unpartitionableShowcase, Fixtures.partitionableShowcase)
 
       When("빈 idToPartitionCount 가 주어졌을 때") {
         val idToPartitionCount: Map<String, Int> = emptyMap()
@@ -123,7 +138,7 @@ class GetPartitionedShowcaseUseCaseTest : BehaviorSpec() {
     }
 
     Given("repository에 partitionable 데이터 아이템이 기본 parition 갯수보다 부족한 경우") {
-      repository.data = listOf(Fixtures.emptyPartitionableShowcase)
+      repositoryData = listOf(Fixtures.emptyPartitionableShowcase)
 
       When("빈 idToPartitionCount가 주어졌을 때") {
         val idToPartitionCount: Map<String, Int> = emptyMap()
