@@ -83,6 +83,6 @@ dependencies {
   testImplementation(testFixtures(project(":domain")))
 
   testImplementation(libs.junit)
-
   testImplementation(libs.mockk)
+  testImplementation(libs.kotlinx.coroutines.test)
 }
