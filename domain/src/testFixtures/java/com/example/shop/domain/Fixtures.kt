@@ -33,6 +33,114 @@ object Fixtures {
           thumbnailUrl = "https://example.com/style4.jpg",
           linkUrl = "https://example.com/style4",
         ),
+      )
+    ),
+    footer = Footer(
+      type = FooterType.MORE,
+      title = "More",
+    ),
+  )
+
+  val defaultPartitionedShowcase = Showcase(
+    id = "1",
+    header = null,
+    contents = Contents.StyleContents(
+      partitionInfo = PartitionInfo(
+        defaultCount = 2,
+        fetchCount = 2,
+      ),
+      items = listOf(
+        ContentsItemType.Style(
+          thumbnailUrl = "https://example.com/style1.jpg",
+          linkUrl = "https://example.com/style1",
+        ),
+        ContentsItemType.Style(
+          thumbnailUrl = "https://example.com/style2.jpg",
+          linkUrl = "https://example.com/style2",
+        ),
+      )
+    ),
+    footer = Footer(
+      type = FooterType.MORE,
+      title = "More",
+    ),
+  )
+
+  val unpartitionableShowcase = Showcase(
+    id = "3",
+    header = null,
+    contents = Contents.BannerContents(
+      items = listOf(
+        ContentsItemType.Banner(
+          title = "Banner1",
+          description = "Banner1 description",
+          keyword = "Banner1 keyword",
+          linkUrl = "https://example.com/banner1",
+          thumbnailUrl = "https://example.com/banner1.jpg",
+        ),
+        ContentsItemType.Banner(
+          title = "Banner2",
+          description = "Banner2 description",
+          keyword = "Banner2 keyword",
+          linkUrl = "https://example.com/banner2",
+          thumbnailUrl = "https://example.com/banner2.jpg",
+        ),
+        ContentsItemType.Banner(
+          title = "Banner3",
+          description = "Banner3 description",
+          keyword = "Banner3 keyword",
+          linkUrl = "https://example.com/banner3",
+          thumbnailUrl = "https://example.com/banner3.jpg",
+        ),
+      )
+    ),
+    footer = Footer(
+      type = FooterType.REFRESH,
+      title = "Refresh",
+    ),
+  )
+
+  val emptyPartitionableShowcase = Showcase(
+    id = "2",
+    header = null,
+    contents = Contents.StyleContents(
+      partitionInfo = PartitionInfo(
+        defaultCount = 2,
+        fetchCount = 2,
+      ),
+      items = emptyList(),
+    ),
+    footer = Footer(
+      type = FooterType.MORE,
+      title = "More",
+    ),
+  )
+
+  val refreshableShowcase = Showcase(
+    id = "1",
+    header = null,
+    contents = Contents.StyleContents(
+      partitionInfo = PartitionInfo(
+        defaultCount = 2,
+        fetchCount = 2,
+      ),
+      items = listOf(
+        ContentsItemType.Style(
+          thumbnailUrl = "https://example.com/style1.jpg",
+          linkUrl = "https://example.com/style1",
+        ),
+        ContentsItemType.Style(
+          thumbnailUrl = "https://example.com/style2.jpg",
+          linkUrl = "https://example.com/style2",
+        ),
+        ContentsItemType.Style(
+          thumbnailUrl = "https://example.com/style3.jpg",
+          linkUrl = "https://example.com/style3",
+        ),
+        ContentsItemType.Style(
+          thumbnailUrl = "https://example.com/style4.jpg",
+          linkUrl = "https://example.com/style4",
+        ),
         ContentsItemType.Style(
           thumbnailUrl = "https://example.com/style5.jpg",
           linkUrl = "https://example.com/style5",
@@ -100,58 +208,8 @@ object Fixtures {
       )
     ),
     footer = Footer(
-      type = FooterType.MORE,
-      title = "More",
-    ),
-  )
-
-  val unpartitionableShowcase = Showcase(
-    id = "3",
-    header = null,
-    contents = Contents.BannerContents(
-      items = listOf(
-        ContentsItemType.Banner(
-          title = "Banner1",
-          description = "Banner1 description",
-          keyword = "Banner1 keyword",
-          linkUrl = "https://example.com/banner1",
-          thumbnailUrl = "https://example.com/banner1.jpg",
-        ),
-        ContentsItemType.Banner(
-          title = "Banner2",
-          description = "Banner2 description",
-          keyword = "Banner2 keyword",
-          linkUrl = "https://example.com/banner2",
-          thumbnailUrl = "https://example.com/banner2.jpg",
-        ),
-        ContentsItemType.Banner(
-          title = "Banner3",
-          description = "Banner3 description",
-          keyword = "Banner3 keyword",
-          linkUrl = "https://example.com/banner3",
-          thumbnailUrl = "https://example.com/banner3.jpg",
-        ),
-      )
-    ),
-    footer = Footer(
       type = FooterType.REFRESH,
       title = "Refresh",
-    ),
-  )
-
-  val emptyPartitionableShowcase = Showcase(
-    id = "2",
-    header = null,
-    contents = Contents.StyleContents(
-      partitionInfo = PartitionInfo(
-        defaultCount = 2,
-        fetchCount = 2,
-      ),
-      items = emptyList(),
-    ),
-    footer = Footer(
-      type = FooterType.MORE,
-      title = "More",
     ),
   )
 }

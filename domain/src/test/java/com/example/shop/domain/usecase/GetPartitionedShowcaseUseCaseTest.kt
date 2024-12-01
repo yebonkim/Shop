@@ -63,9 +63,7 @@ class GetPartitionedShowcaseUseCaseTest : BehaviorSpec() {
           useCase(idToPartitionCount)[0].contents shouldBe Fixtures.unpartitionableShowcase.contents
         }
         Then("Partitionable한 데이터는 기본 갯수로 partition된다") {
-          useCase(idToPartitionCount)[1].contents shouldBe partitionableContents.copy(
-            items = partitionableContents.items.take(partitionableContents.partitionInfo.defaultCount)
-          )
+          useCase(idToPartitionCount)[1].contents shouldBe Fixtures.defaultPartitionedShowcase.contents
         }
       }
 
