@@ -1,6 +1,6 @@
 package com.example.shop.feature.home
 
- import com.airbnb.mvrx.Success
+import com.airbnb.mvrx.Success
 import com.airbnb.mvrx.test.MavericksTestRule
 import com.airbnb.mvrx.withState
 import com.example.shop.domain.Fixtures
@@ -10,6 +10,12 @@ import com.example.shop.domain.usecase.GetPartitionedShowcasesUseCase
 import com.example.shop.domain.usecase.RefreshShowcaseUseCase
 import io.mockk.coEvery
 import io.mockk.mockk
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.withTimeoutOrNull
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Before
@@ -98,7 +104,8 @@ class HomeViewModelTest {
       getPartitionedShowcasesUseCase = getPartitionedShowcasesUseCase,
       refreshShowcaseUseCase = refreshShowcaseUseCase
     )
-    val beforeRefresh = withState(viewModel) { it.showcases()?.firstOrNull()?.contents } ?: error("empty data")
+    val beforeRefresh =
+      withState(viewModel) { it.showcases()?.firstOrNull()?.contents } ?: error("empty data")
 
     viewModel.onClickFooter(Fixtures.refreshableShowcase.id)
 
@@ -116,7 +123,8 @@ class HomeViewModelTest {
       getPartitionedShowcasesUseCase = getPartitionedShowcasesUseCase,
       refreshShowcaseUseCase = refreshShowcaseUseCase
     )
-    val beforeMoreLoad = withState(viewModel) { it.showcases()?.firstOrNull()?.contents } ?: error("empty data")
+    val beforeMoreLoad =
+      withState(viewModel) { it.showcases()?.firstOrNull()?.contents } ?: error("empty data")
 
     viewModel.onClickFooter(Fixtures.emptyPartitionableShowcase.id)
 
@@ -134,7 +142,8 @@ class HomeViewModelTest {
       getPartitionedShowcasesUseCase = getPartitionedShowcasesUseCase,
       refreshShowcaseUseCase = refreshShowcaseUseCase
     )
-    val beforeMoreLoad = withState(viewModel) { it.showcases()?.firstOrNull()?.contents } ?: error("empty data")
+    val beforeMoreLoad =
+      withState(viewModel) { it.showcases()?.firstOrNull()?.contents } ?: error("empty data")
 
     viewModel.onClickFooter(Fixtures.partitionableShowcase.id)
 
@@ -142,6 +151,56 @@ class HomeViewModelTest {
       val afterMoreLoad = it.showcases()?.firstOrNull()?.contents ?: error("empty data")
       assert(beforeMoreLoad.items.size < afterMoreLoad.items.size)
     }
+  }
+
+  @Test
+  fun `url이 null인 경우 클릭 함수를 호출하면 이펙트가 발생하지 않는다`() = runTest {
+    viewModel = HomeViewModel(
+      initialState = HomeUiState(),
+      getPartitionedShowcasesUseCase = getPartitionedShowcasesUseCase,
+      refreshShowcaseUseCase = refreshShowcaseUseCase
+    )
+    val uiEffect = viewModel.uiEffect.receiveAsFlow()
+    val collectJob = launch { uiEffect.collect() }
+
+    viewModel.onClickLink(null)
+
+    assertEquals(withTimeoutOrNull(100L) { uiEffect.first() }, null)
+    collectJob.cancel()
+  }
+
+  @Test
+  fun `유효한 url이 있는 경우 클릭 함수를 호출하면 네비게이션 이펙트가 발생하지 않는다`() = runTest {
+    viewModel = HomeViewModel(
+      initialState = HomeUiState(),
+      getPartitionedShowcasesUseCase = getPartitionedShowcasesUseCase,
+      refreshShowcaseUseCase = refreshShowcaseUseCase
+    )
+    val uiEffect = viewModel.uiEffect.receiveAsFlow()
+    val collectJob = launch { uiEffect.collect() }
+    val url = "https://example.com"
+
+    viewModel.onClickLink(url)
+
+    assertEquals(uiEffect.first(), HomeUiEffect.NavigateToDetail(url))
+    collectJob.cancel()
+  }
+
+  @Test
+  fun `유효하지 않은 url이 있는 경우 클릭 함수를 호출하면 네비게이션 이펙트가 발생한다`() = runTest {
+    viewModel = HomeViewModel(
+      initialState = HomeUiState(),
+      getPartitionedShowcasesUseCase = getPartitionedShowcasesUseCase,
+      refreshShowcaseUseCase = refreshShowcaseUseCase
+    )
+    val uiEffect = viewModel.uiEffect.receiveAsFlow()
+    val collectJob = launch { uiEffect.collect() }
+    val url = "Invalid Url"
+
+    viewModel.onClickLink(url)
+
+    assertEquals(withTimeoutOrNull(100L) { uiEffect.first() }, null)
+    collectJob.cancel()
   }
 
   companion object {

@@ -16,6 +16,7 @@ import com.example.shop.domain.usecase.RefreshShowcaseUseCase
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import java.net.URL
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 
@@ -74,12 +75,16 @@ class HomeViewModel @AssistedInject constructor(
   }
 
   fun onClickLink(url: String?) {
-    if (url.isNullOrEmpty()) return
+    if (url == null || !url.isValidUrl()) return
 
     viewModelScope.launch {
       uiEffect.send(HomeUiEffect.NavigateToDetail(url))
     }
   }
+
+  private fun String.isValidUrl(): Boolean = runCatching {
+    URL(this)
+  }.isSuccess
 
   private fun loadMore(showcaseId: String) {
     withState { state ->
