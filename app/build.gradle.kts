@@ -68,9 +68,11 @@ dependencies {
   implementation(libs.mavericks.compose)
   implementation(libs.mavericks.testing)
 
+  implementation(libs.kotlinx.serialization.json)
+
+  testImplementation(testFixtures(project(":domain")))
+
   testImplementation(libs.junit)
 
   testImplementation(libs.mockk)
-
-  implementation(libs.kotlinx.serialization.json)
 }
