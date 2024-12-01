@@ -16,7 +16,9 @@ import com.example.shop.designsystem.ui.showcase.ShowcaseList
 import com.example.shop.designsystem.ui.component.LoadingProgressIndicator
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+  navigateToDetail: (String) -> Unit
+) {
   val viewModel: HomeViewModel = mavericksViewModel()
   val state by viewModel.stateFlow.collectAsStateWithLifecycle(withState(viewModel) { it })
   val showcases = remember(state.showcases) { state.showcases() }
