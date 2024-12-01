@@ -22,5 +22,6 @@ fun NavController.navigateToDetail(linkUrl: String) {
 
 fun NavGraphBuilder.DetailRoute() {
   composable<Detail> { backStackEntry ->
+    DetailScreen(linkUrl = backStackEntry.toRoute<Detail>().linkUrl)
   }
 }
