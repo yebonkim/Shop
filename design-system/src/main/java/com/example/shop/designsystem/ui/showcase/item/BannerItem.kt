@@ -1,5 +1,6 @@
 package com.example.shop.designsystem.ui.showcase.item
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -26,12 +27,14 @@ fun BannerItem(
   modifier: Modifier = Modifier,
   imageModifier: Modifier = Modifier,
   banner: ContentsItemType.Banner,
+  onClick: () -> Unit = {},
 ) {
   Box(
     modifier = modifier
       .fillMaxWidth()
       .aspectRatio(1f)
       .clipToBounds()
+      .clickable { onClick() }
   ) {
     AsyncImage(
       model = banner.thumbnailUrl,

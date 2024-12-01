@@ -26,6 +26,7 @@ fun BannerPager(
   modifier: Modifier = Modifier,
   items: List<ContentsItemType.Banner>,
   autoScroll: Boolean = true,
+  onClickItem: (ContentsItemType.Banner) -> Unit = {},
 ) {
   val pagerState = rememberPagerState(pageCount = { Int.MAX_VALUE })
   val coroutineScope = rememberCoroutineScope()
@@ -46,7 +47,8 @@ fun BannerPager(
     ) { pageIdx ->
       BannerItem(
         imageModifier = Modifier.parallax(pagerState, pageIdx),
-        banner = items[pageIdx % items.size]
+        banner = items[pageIdx % items.size],
+        onClick = { onClickItem(items[pageIdx % items.size]) },
       )
     }
     PagerIndicator(

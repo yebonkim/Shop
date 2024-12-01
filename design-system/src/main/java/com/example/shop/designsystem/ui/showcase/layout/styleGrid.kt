@@ -12,7 +12,8 @@ import com.example.shop.designsystem.ui.showcase.item.StyleItem
 import com.example.shop.domain.model.ContentsItemType
 
 fun LazyGridScope.styleGrid(
-  items: List<ContentsItemType.Style>
+  items: List<ContentsItemType.Style>,
+  onClickItem: (ContentsItemType.Style) -> Unit,
 ) {
   val modifier = Modifier
     .aspectRatio(0.8f)
@@ -20,7 +21,8 @@ fun LazyGridScope.styleGrid(
 
   HighlightGrid(
     items = items.take(3),
-    itemModifier = modifier
+    itemModifier = modifier,
+    onClickItem = onClickItem,
   )
 
   itemsIndexed(
@@ -30,7 +32,8 @@ fun LazyGridScope.styleGrid(
   ) { idx, item ->
     StyleItem(
       style = item,
-      modifier = modifier
+      modifier = modifier,
+      onClick = { onClickItem(item) },
     )
   }
 }
@@ -38,6 +41,7 @@ fun LazyGridScope.styleGrid(
 private fun LazyGridScope.HighlightGrid(
   items: List<ContentsItemType.Style>,
   itemModifier: Modifier,
+  onClickItem: (ContentsItemType.Style) -> Unit,
 ) {
   items.firstOrNull()?.let { style ->
     item(
@@ -45,7 +49,8 @@ private fun LazyGridScope.HighlightGrid(
     ) {
       StyleItem(
         style = style,
-        modifier = itemModifier
+        modifier = itemModifier,
+        onClick = { onClickItem(style) },
       )
     }
   }
@@ -57,7 +62,8 @@ private fun LazyGridScope.HighlightGrid(
       items.drop(1).take(2).forEach { style ->
         StyleItem(
           style = style,
-          modifier = itemModifier
+          modifier = itemModifier,
+          onClick = { onClickItem(style) },
         )
       }
     }

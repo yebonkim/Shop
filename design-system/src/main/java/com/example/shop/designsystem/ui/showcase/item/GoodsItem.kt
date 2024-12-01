@@ -1,6 +1,7 @@
 package com.example.shop.designsystem.ui.showcase.item
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,12 +30,14 @@ import com.example.shop.domain.model.ContentsItemType
 @Composable
 fun GoodsItem(
   modifier: Modifier = Modifier,
-  goods: ContentsItemType.Goods
+  goods: ContentsItemType.Goods,
+  onClick: () -> Unit = {},
 ) {
   Column(
     modifier = modifier
       .width(120.dp)
-      .padding(bottom = 4.dp),
+      .padding(bottom = 4.dp)
+      .clickable { onClick() },
   ) {
     Box {
       AsyncImage(

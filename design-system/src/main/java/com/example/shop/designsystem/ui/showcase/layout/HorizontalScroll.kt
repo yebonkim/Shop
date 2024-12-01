@@ -14,7 +14,8 @@ import com.example.shop.domain.model.ContentsItemType
 @Composable
 fun HorizontalScroll(
   modifier: Modifier = Modifier,
-  items: List<ContentsItemType.Goods>
+  items: List<ContentsItemType.Goods>,
+  onClickItem: (ContentsItemType.Goods) -> Unit = {},
 ) {
   LazyRow(
     modifier = modifier.fillMaxWidth(),
@@ -30,7 +31,8 @@ fun HorizontalScroll(
     ) { item ->
       GoodsItem(
         modifier = Modifier.padding(horizontal = 2.dp),
-        goods = item
+        goods = item,
+        onClick = { onClickItem(item) },
       )
     }
   }

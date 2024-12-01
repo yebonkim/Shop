@@ -1,25 +1,23 @@
 package com.example.shop.designsystem.ui.showcase.item
 
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.clickable
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.unit.dp
-import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.example.shop.designsystem.ui.component.AsyncImage
 import com.example.shop.domain.model.ContentsItemType
 
-@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun StyleItem(
   modifier: Modifier = Modifier,
-  style: ContentsItemType.Style
+  style: ContentsItemType.Style,
+  onClick: () -> Unit = {},
 ) {
   AsyncImage(
     model = style.thumbnailUrl,
     contentDescription = null,
-    modifier = modifier,
+    modifier = modifier
+      .clickable { onClick() },
     contentScale = ContentScale.Crop
   )
 }

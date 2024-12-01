@@ -1,5 +1,6 @@
 package com.example.shop.designsystem.ui.showcase
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -17,7 +18,7 @@ import com.example.shop.domain.model.Showcase
 fun ShowcaseList(
   modifier: Modifier = Modifier,
   showcases: List<Showcase>,
-  onClickHeaderLink: (String) -> Unit,
+  onClickLink: (String?) -> Unit,
   onClickFooter: (String) -> Unit,
 ) {
   LazyVerticalGrid(
@@ -29,7 +30,7 @@ fun ShowcaseList(
         item(span = { GridItemSpan(3) }) {
           ShowcaseHeader(
             header = header,
-            onClickLink = { onClickHeaderLink(showcase.id) },
+            onClickLink = { onClickLink(header.linkUrl) },
           )
         }
       }
@@ -38,6 +39,7 @@ fun ShowcaseList(
           item(span = { GridItemSpan(3) }) {
             BannerPager(
               items = content.items,
+              onClickItem = { onClickLink(it.linkUrl) },
             )
           }
         }
@@ -45,6 +47,7 @@ fun ShowcaseList(
         is Contents.GridContents -> {
           goodsGrid(
             items = content.items,
+            onClickItem = { onClickLink(it.linkUrl) },
           )
         }
 
@@ -52,6 +55,7 @@ fun ShowcaseList(
           item(span = { GridItemSpan(3) }) {
             HorizontalScroll(
               items = content.items,
+              onClickItem = { onClickLink(it.linkUrl) },
             )
           }
         }
@@ -59,6 +63,7 @@ fun ShowcaseList(
         is Contents.StyleContents -> {
           styleGrid(
             items = content.items,
+            onClickItem = { onClickLink(it.linkUrl) },
           )
         }
 
