@@ -15,7 +15,7 @@ fun LazyGridScope.goodsGrid(
   items(
     items = goodsList,
     key = { goods -> goods.linkUrl },
-    contentType = { goods -> goods::class.java.simpleName }
+    contentType = { goods -> "goods" }
   ) { goods ->
     GoodsItem(
       modifier = Modifier.padding(2.dp),

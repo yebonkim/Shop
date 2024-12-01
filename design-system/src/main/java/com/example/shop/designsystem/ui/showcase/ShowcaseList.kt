@@ -26,7 +26,10 @@ fun ShowcaseList(
   ) {
     showcases.forEach { showcase ->
       showcase.header?.let { header ->
-        item(span = { GridItemSpan(3) }) {
+        item(
+          span = { GridItemSpan(3) },
+          contentType = { "ShowcaseHeader" },
+        ) {
           ShowcaseHeader(
             header = header,
             onClickLink = { onClickLink(header.linkUrl) },
@@ -35,7 +38,10 @@ fun ShowcaseList(
       }
       when (val content = showcase.contents) {
         is Contents.BannerContents -> {
-          item(span = { GridItemSpan(3) }) {
+          item(
+            span = { GridItemSpan(3) },
+            contentType = { "BannerPager" },
+          ) {
             BannerPager(
               banners = content.items,
               onClickBanner = { onClickLink(it.linkUrl) },
@@ -51,7 +57,10 @@ fun ShowcaseList(
         }
 
         is Contents.ScrollContents -> {
-          item(span = { GridItemSpan(3) }) {
+          item(
+            span = { GridItemSpan(3) },
+            contentType = { "HorizontalScroll" },
+          ) {
             HorizontalScroll(
               goodsList = content.items,
               onClickItem = { onClickLink(it.linkUrl) },
@@ -67,13 +76,19 @@ fun ShowcaseList(
         }
 
         is Contents.Unknown -> {
-          item(span = { GridItemSpan(3) }) {
+          item(
+            span = { GridItemSpan(3) },
+            contentType = { "UpdateWarning" },
+          ) {
             UpdateWarning()
           }
         }
       }
       showcase.footer?.let { footer ->
-        item(span = { GridItemSpan(3) }) {
+        item(
+          span = { GridItemSpan(3) },
+          contentType = { "ShowcaseFooter" },
+        ) {
           ShowcaseFooter(
             footer = footer,
             onClick = { onClickFooter(showcase.id) },

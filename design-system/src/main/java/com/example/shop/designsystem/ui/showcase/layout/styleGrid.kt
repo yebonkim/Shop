@@ -19,7 +19,7 @@ fun LazyGridScope.styleGrid(
   items(
     items = styles.drop(3),
     key = { style -> style.linkUrl },
-    contentType = { _ -> "StyleItem" },
+    contentType = { _ -> "style" },
   ) { style ->
     StyleItem(
       style = style,
@@ -35,6 +35,7 @@ private fun LazyGridScope.HighlightGrid(
   styles.firstOrNull()?.let { style ->
     item(
       span = { GridItemSpan(2) },
+      contentType = { "HighlightStyleItem" },
     ) {
       StyleItem(
         style = style,
@@ -45,6 +46,7 @@ private fun LazyGridScope.HighlightGrid(
 
   item(
     span = { GridItemSpan(1) },
+    contentType = { "ColumnedStyleItem" },
   ) {
     Column {
       styles.drop(1).take(2).forEach { style ->
