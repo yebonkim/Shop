@@ -15,6 +15,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layout
+import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import com.example.shop.designsystem.ui.showcase.item.BannerItem
 import com.example.shop.domain.model.ContentsItemType
@@ -64,7 +65,13 @@ fun BannerPager(
 
 private fun Modifier.parallax(state: PagerState, currentPage: Int) =
   layout { measurable, constraints ->
-    val placeable = measurable.measure(constraints)
+    val expandedConstraints = Constraints(
+      minWidth = (constraints.minWidth * 1.05).toInt(),
+      maxWidth = (constraints.maxWidth * 1.05).toInt(),
+      minHeight = (constraints.minHeight * 1.05).toInt(),
+      maxHeight = (constraints.maxHeight * 1.05).toInt()
+    )
+    val placeable = measurable.measure(expandedConstraints)
 
     val direction = state.currentPage - currentPage
     val fraction = (direction + state.currentPageOffsetFraction).coerceIn(-1f, 1f)
