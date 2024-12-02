@@ -14,18 +14,18 @@ class ShowcaseRepositoryImpl(
 ) : ShowcaseRepository {
   private var cachedShowcases: List<Showcase> = listOf()
 
-  override suspend fun loadShowcases(): List<Showcase> {
+  override suspend fun loadShowcases(): Result<List<Showcase>> {
     if (cachedShowcases.isNotEmpty()) {
-      return cachedShowcases
+      return Result.success(cachedShowcases)
     }
     return withContext(ioDispatcher) {
       when (val loaded = network.loadShowcase()) {
         is ApiResponse.Success -> {
           cachedShowcases = loaded.data.data.map { it.toDomain(generateRandomId()) }
-          cachedShowcases
+          Result.success(cachedShowcases)
         }
 
-        else -> emptyList()
+        is ApiResponse.Error -> Result.failure(loaded.throwable)
       }
     }
   }

@@ -7,14 +7,14 @@ class RefreshShowcaseUseCase(
   private val showcaseRepository: ShowcaseRepository
 ) {
   suspend operator fun invoke(showcaseId: String) {
-    showcaseRepository.update(
-      showcaseRepository.loadShowcases().map { showcase ->
-        if (showcase.id == showcaseId) {
-          showcase.copy(contents = showcase.contents.copy(showcase.contents.items.shuffled()))
-        } else {
-          showcase
-        }
+    val showcases = showcaseRepository.loadShowcases().getOrDefault(emptyList())
+
+    showcaseRepository.update(showcases.map { showcase ->
+      if (showcase.id == showcaseId) {
+        showcase.copy(contents = showcase.contents.copy(showcase.contents.items.shuffled()))
+      } else {
+        showcase
       }
-    )
+    })
   }
 }

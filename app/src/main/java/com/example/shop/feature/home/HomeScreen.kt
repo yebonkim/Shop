@@ -3,6 +3,7 @@ package com.example.shop.feature.home
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -12,6 +13,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
+import com.airbnb.mvrx.Fail
 import com.airbnb.mvrx.Loading
 import com.airbnb.mvrx.compose.mavericksViewModel
 import com.airbnb.mvrx.withState
@@ -43,16 +45,17 @@ fun HomeScreen(
       .fillMaxSize()
   ) { padding ->
     when {
-      showcases != null -> {
+      state.showcases is Fail -> {
+        Text("Error!", modifier = Modifier.padding(padding))
+      }
+      else -> {
         ShowcaseList(
           modifier = Modifier.padding(padding),
-          showcases = showcases,
+          isLoading = state.showcases is Loading,
+          showcases = showcases ?: emptyList(),
           onClickLink = { link -> viewModel.onClickLink(link) },
           onClickFooter = { showcaseId -> viewModel.onClickFooter(showcaseId) }
         )
-      }
-      state.showcases is Loading -> {
-        LoadingProgressIndicator(modifier = Modifier.padding(padding))
       }
     }
   }

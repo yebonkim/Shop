@@ -19,7 +19,7 @@ class ShowcaseNet @Inject constructor(
       }
     }.body<NetworkShowcaseRespond>()
   }.fold(
-    onSuccess = { ApiResponse.Success(it) },
-    onFailure = { ApiResponse.Error(it.message ?: "Unknown error") }
+    onSuccess = { data -> ApiResponse.Success(data) },
+    onFailure = { throwable -> ApiResponse.Error(throwable) }
   )
 }

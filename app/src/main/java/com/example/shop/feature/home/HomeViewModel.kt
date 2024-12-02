@@ -2,9 +2,12 @@ package com.example.shop.feature.home
 
 import androidx.compose.runtime.Stable
 import com.airbnb.mvrx.Async
+import com.airbnb.mvrx.Fail
+import com.airbnb.mvrx.Loading
 import com.airbnb.mvrx.MavericksState
 import com.airbnb.mvrx.MavericksViewModel
 import com.airbnb.mvrx.MavericksViewModelFactory
+import com.airbnb.mvrx.Success
 import com.airbnb.mvrx.Uninitialized
 import com.airbnb.mvrx.hilt.AssistedViewModelFactory
 import com.airbnb.mvrx.hilt.hiltMavericksViewModelFactory
@@ -48,10 +51,12 @@ class HomeViewModel @AssistedInject constructor(
   }
 
   private fun loadData(partitionInfos: Map<String, Int>) {
-    suspend {
-      getPartitionedShowcasesUseCase(partitionInfos)
-    }.execute(retainValue = HomeUiState::showcases) { showcases ->
-      copy(showcases = showcases)
+    viewModelScope.launch {
+      setState { copy(showcases = Loading(value = showcases())) }
+      getPartitionedShowcasesUseCase(partitionInfos).fold(
+        onSuccess = { setState { copy(showcases = Success(it)) } },
+        onFailure = { setState { copy(showcases = Fail(it)) } }
+      )
     }
   }
 
