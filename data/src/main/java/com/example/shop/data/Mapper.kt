@@ -14,6 +14,7 @@ import com.example.shop.network.model.NetworkGoods
 import com.example.shop.network.model.NetworkHeader
 import com.example.shop.network.model.NetworkShowcase
 import com.example.shop.network.model.NetworkStyle
+import kotlinx.collections.immutable.toImmutableList
 
 internal fun NetworkBanner.toDomain() = ContentsItemType.Banner(
   title = title,
@@ -59,7 +60,7 @@ internal fun NetworkFooter.toDomain() = when (this) {
 
 internal fun NetworkContents.toDomain() = when (this) {
   is NetworkContents.BannerContents -> Contents.BannerContents(
-    items = banners.map { it.toDomain() }
+    items = banners.map { it.toDomain() }.toImmutableList()
   )
 
   is NetworkContents.GridContents -> Contents.GridContents(
@@ -67,11 +68,11 @@ internal fun NetworkContents.toDomain() = when (this) {
       defaultCount = 6,
       fetchCount = 3
     ),
-    items = goods.map { it.toDomain() }
+    items = goods.map { it.toDomain() }.toImmutableList()
   )
 
   is NetworkContents.ScrollContents -> Contents.ScrollContents(
-    items = goods.map { it.toDomain() }
+    items = goods.map { it.toDomain() }.toImmutableList()
   )
 
   is NetworkContents.StyleContents -> Contents.StyleContents(
@@ -79,11 +80,11 @@ internal fun NetworkContents.toDomain() = when (this) {
       defaultCount = 6,
       fetchCount = 3
     ),
-    items = styles.map { it.toDomain() }
+    items = styles.map { it.toDomain() }.toImmutableList()
   )
 
   is NetworkContents.Unknown -> Contents.Unknown(
-    items = emptyList()
+    items = emptyList<ContentsItemType>().toImmutableList()
   )
 }
 

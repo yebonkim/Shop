@@ -7,9 +7,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.shop.designsystem.ui.showcase.item.GoodsItem
 import com.example.shop.domain.model.ContentsItemType
+import kotlinx.collections.immutable.ImmutableList
 
 fun LazyGridScope.goodsGrid(
-  goodsList: List<ContentsItemType.Goods>,
+  goodsList: ImmutableList<ContentsItemType.Goods>,
   onClickGoods: (ContentsItemType.Goods) -> Unit = {},
 ) {
   items(

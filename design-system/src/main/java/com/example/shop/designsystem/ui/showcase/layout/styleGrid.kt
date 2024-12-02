@@ -6,9 +6,10 @@ import androidx.compose.foundation.lazy.grid.LazyGridScope
 import androidx.compose.foundation.lazy.grid.items
 import com.example.shop.designsystem.ui.showcase.item.StyleItem
 import com.example.shop.domain.model.ContentsItemType
+import kotlinx.collections.immutable.ImmutableList
 
 fun LazyGridScope.styleGrid(
-  styles: List<ContentsItemType.Style>,
+  styles: ImmutableList<ContentsItemType.Style>,
   onClickStyle: (ContentsItemType.Style) -> Unit,
 ) {
   HighlightGrid(

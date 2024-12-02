@@ -18,13 +18,14 @@ import androidx.compose.ui.layout.layout
 import androidx.compose.ui.unit.dp
 import com.example.shop.designsystem.ui.showcase.item.BannerItem
 import com.example.shop.domain.model.ContentsItemType
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
 fun BannerPager(
   modifier: Modifier = Modifier,
-  banners: List<ContentsItemType.Banner>,
+  banners: ImmutableList<ContentsItemType.Banner>,
   autoScroll: Boolean = true,
   onClickBanner: (ContentsItemType.Banner) -> Unit = {},
 ) {

@@ -20,6 +20,8 @@ import com.airbnb.mvrx.withState
 import com.example.shop.designsystem.ui.component.ErrorPage
 import com.example.shop.designsystem.ui.showcase.ShowcaseList
 import com.example.shop.designsystem.ui.component.LoadingProgressIndicator
+import com.example.shop.domain.model.Showcase
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.receiveAsFlow
 
 @Composable
@@ -56,7 +58,7 @@ fun HomeScreen(
         ShowcaseList(
           modifier = Modifier.padding(padding),
           isLoading = state.showcases is Loading,
-          showcases = showcases ?: emptyList(),
+          showcases = showcases ?: emptyList<Showcase>().toImmutableList(),
           onClickLink = { link -> viewModel.onClickLink(link) },
           onClickFooter = { showcaseId -> viewModel.onClickFooter(showcaseId) }
         )

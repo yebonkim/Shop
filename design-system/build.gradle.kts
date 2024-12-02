@@ -41,5 +41,7 @@ dependencies {
 
   implementation(libs.androidx.material3)
 
+  implementation(libs.kotlinx.collections.immutable)
+
   implementation(libs.glide.compose)
 }

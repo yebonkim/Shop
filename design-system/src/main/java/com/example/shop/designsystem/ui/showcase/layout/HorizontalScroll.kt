@@ -10,11 +10,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.shop.designsystem.ui.showcase.item.GoodsItem
 import com.example.shop.domain.model.ContentsItemType
+import kotlinx.collections.immutable.ImmutableList
 
 @Composable
 fun HorizontalScroll(
   modifier: Modifier = Modifier,
-  goodsList: List<ContentsItemType.Goods>,
+  goodsList: ImmutableList<ContentsItemType.Goods>,
   onClickItem: (ContentsItemType.Goods) -> Unit = {},
 ) {
   LazyRow(

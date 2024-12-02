@@ -72,6 +72,7 @@ dependencies {
   implementation(libs.hilt.android)
 
   implementation(libs.kotlinx.coroutines)
+  implementation(libs.kotlinx.collections.immutable)
 
   implementation(libs.mavericks)
   implementation(libs.mavericks.hilt)

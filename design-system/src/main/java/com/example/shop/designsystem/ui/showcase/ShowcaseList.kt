@@ -16,12 +16,13 @@ import com.example.shop.designsystem.ui.showcase.layout.goodsGrid
 import com.example.shop.designsystem.ui.showcase.layout.styleGrid
 import com.example.shop.domain.model.Contents
 import com.example.shop.domain.model.Showcase
+import kotlinx.collections.immutable.ImmutableList
 
 @Composable
 fun ShowcaseList(
   modifier: Modifier = Modifier,
   isLoading: Boolean,
-  showcases: List<Showcase>,
+  showcases: ImmutableList<Showcase>,
   onClickLink: (String?) -> Unit,
   onClickFooter: (String) -> Unit,
 ) {

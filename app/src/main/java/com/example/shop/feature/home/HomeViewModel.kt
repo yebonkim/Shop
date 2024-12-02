@@ -20,12 +20,14 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import java.net.URL
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 
 @Stable
 data class HomeUiState(
-  val showcases: Async<List<Showcase>> = Uninitialized,
+  val showcases: Async<ImmutableList<Showcase>> = Uninitialized,
 ) : MavericksState
 
 sealed interface HomeUiEffect {
@@ -54,7 +56,7 @@ class HomeViewModel @AssistedInject constructor(
     viewModelScope.launch {
       setState { copy(showcases = Loading(value = showcases())) }
       loadPartitionedShowcasesUseCase(partitionInfos).fold(
-        onSuccess = { setState { copy(showcases = Success(it)) } },
+        onSuccess = { setState { copy(showcases = Success(it.toImmutableList())) } },
         onFailure = { setState { copy(showcases = Fail(it)) } }
       )
     }

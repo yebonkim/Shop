@@ -36,6 +36,7 @@ dependencies {
   implementation(project(":domain"))
 
   implementation(libs.kotlinx.coroutines)
+  implementation(libs.kotlinx.collections.immutable)
 
   ksp(libs.hilt.compiler)
   implementation(libs.hilt.android)
