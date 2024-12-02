@@ -7,4 +7,7 @@
 
 ## 실행 모습
 
-![image1](images/demo.mp4)
+<video controls>
+  <source src="https://github.com/yebonkim/Shop/blob/main/images/demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
