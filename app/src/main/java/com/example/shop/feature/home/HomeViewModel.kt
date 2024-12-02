@@ -44,7 +44,7 @@ class HomeViewModel @AssistedInject constructor(
     loadData()
   }
 
-  private fun loadData() {
+  fun loadData() {
     withState { state ->
       loadData(state.showcases()?.itemSizeMap() ?: emptyMap())
     }

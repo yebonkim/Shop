@@ -17,6 +17,7 @@ import com.airbnb.mvrx.Fail
 import com.airbnb.mvrx.Loading
 import com.airbnb.mvrx.compose.mavericksViewModel
 import com.airbnb.mvrx.withState
+import com.example.shop.designsystem.ui.component.ErrorPage
 import com.example.shop.designsystem.ui.showcase.ShowcaseList
 import com.example.shop.designsystem.ui.component.LoadingProgressIndicator
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -46,7 +47,10 @@ fun HomeScreen(
   ) { padding ->
     when {
       state.showcases is Fail -> {
-        Text("Error!", modifier = Modifier.padding(padding))
+        ErrorPage(
+          modifier = Modifier.padding(padding),
+          onClickRetry = { viewModel.loadData() }
+        )
       }
       else -> {
         ShowcaseList(
