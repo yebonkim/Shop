@@ -23,5 +23,10 @@ subprojects {
       "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=" +
         project.buildDir.absolutePath + "/compose_metrics"
     )
+    kotlinOptions.freeCompilerArgs += listOf(
+      "-P",
+      "plugin:androidx.compose.compiler.plugins.kotlin:stabilityConfigurationPath=" +
+        rootProject.projectDir.absolutePath + "/compose_compiler_config.conf"
+    )
   }
 }
