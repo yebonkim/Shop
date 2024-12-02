@@ -37,7 +37,7 @@ fun BannerItem(
       .clickable { onClick() }
   ) {
     AsyncImage(
-      model = banner.thumbnailUrl,
+      imageUrl = banner.thumbnailUrl,
       contentDescription = banner.title,
       modifier = imageModifier.fillMaxSize(),
       contentScale = ContentScale.Fit

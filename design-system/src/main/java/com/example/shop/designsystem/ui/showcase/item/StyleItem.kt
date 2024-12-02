@@ -17,7 +17,7 @@ fun StyleItem(
   onClick: () -> Unit = {},
 ) {
   AsyncImage(
-    model = style.thumbnailUrl,
+    imageUrl = style.thumbnailUrl,
     contentDescription = null,
     modifier = modifier
       .aspectRatio(0.8f)

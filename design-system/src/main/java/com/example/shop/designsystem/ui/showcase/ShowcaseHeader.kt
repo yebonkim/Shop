@@ -49,7 +49,7 @@ fun ShowcaseHeader(
       )
       header.iconUrl?.let { iconUrl ->
         AsyncImage(
-          model = iconUrl,
+          imageUrl = iconUrl,
           contentDescription = "Header icon",
           modifier = Modifier.size(20.dp),
         )

@@ -11,6 +11,7 @@ import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.mockk.coEvery
 import io.mockk.mockk
+import kotlinx.collections.immutable.toImmutableList
 
 class LoadPartitionedShowcaseUseCaseTest : BehaviorSpec() {
   override fun isolationMode(): IsolationMode = IsolationMode.InstancePerLeaf
@@ -82,7 +83,7 @@ class LoadPartitionedShowcaseUseCaseTest : BehaviorSpec() {
         }
         Then("Partitionable한 데이터는 기본 갯수로 partition된다") {
           useCase(idToPartitionCount).get(1).contents shouldBe partitionableContents.copy(
-            items = partitionableContents.items.take(partitionableContents.partitionInfo.defaultCount)
+            items = partitionableContents.items.take(partitionableContents.partitionInfo.defaultCount).toImmutableList()
           )
         }
       }

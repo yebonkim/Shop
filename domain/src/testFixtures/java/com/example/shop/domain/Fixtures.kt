@@ -6,6 +6,7 @@ import com.example.shop.domain.model.Footer
 import com.example.shop.domain.model.FooterType
 import com.example.shop.domain.model.PartitionInfo
 import com.example.shop.domain.model.Showcase
+import kotlinx.collections.immutable.toImmutableList
 
 object Fixtures {
   val partitionableShowcase = Showcase(
@@ -33,7 +34,7 @@ object Fixtures {
           thumbnailUrl = "https://example.com/style4.jpg",
           linkUrl = "https://example.com/style4",
         ),
-      )
+      ).toImmutableList()
     ),
     footer = Footer(
       type = FooterType.MORE,
@@ -58,7 +59,7 @@ object Fixtures {
           thumbnailUrl = "https://example.com/style2.jpg",
           linkUrl = "https://example.com/style2",
         ),
-      )
+      ).toImmutableList()
     ),
     footer = Footer(
       type = FooterType.MORE,
@@ -92,7 +93,7 @@ object Fixtures {
           linkUrl = "https://example.com/banner3",
           thumbnailUrl = "https://example.com/banner3.jpg",
         ),
-      )
+      ).toImmutableList()
     ),
     footer = Footer(
       type = FooterType.REFRESH,
@@ -108,7 +109,7 @@ object Fixtures {
         defaultCount = 2,
         fetchCount = 2,
       ),
-      items = emptyList(),
+      items = emptyList<ContentsItemType.Style>().toImmutableList(),
     ),
     footer = Footer(
       type = FooterType.MORE,
@@ -205,7 +206,7 @@ object Fixtures {
           thumbnailUrl = "https://example.com/style20.jpg",
           linkUrl = "https://example.com/style20",
         ),
-      )
+      ).toImmutableList()
     ),
     footer = Footer(
       type = FooterType.REFRESH,

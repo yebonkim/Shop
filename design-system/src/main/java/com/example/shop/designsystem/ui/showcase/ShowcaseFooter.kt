@@ -43,7 +43,7 @@ fun ShowcaseFooter(
   ) {
     footer.iconUrl?.let { iconUrl ->
       AsyncImage(
-        model = iconUrl,
+        imageUrl = iconUrl,
         contentDescription = "Footer icon",
         modifier = Modifier.size(20.dp),
       )

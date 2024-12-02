@@ -41,7 +41,7 @@ fun GoodsItem(
   ) {
     Box {
       AsyncImage(
-        model = goods.thumbnailUrl,
+        imageUrl = goods.thumbnailUrl,
         contentDescription = goods.brandName,
         modifier = Modifier
           .fillMaxWidth()
