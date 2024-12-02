@@ -39,6 +39,7 @@ fun ShowcaseList(
         showcase.header?.let { header ->
           item(
             span = { GridItemSpan(3) },
+            key = showcase.id+"_header",
             contentType = { "ShowcaseHeader" },
           ) {
             ShowcaseHeader(
@@ -51,6 +52,7 @@ fun ShowcaseList(
           is Contents.BannerContents -> {
             item(
               span = { GridItemSpan(3) },
+              key = showcase.id,
               contentType = { "BannerPager" },
             ) {
               BannerPager(
@@ -70,6 +72,7 @@ fun ShowcaseList(
           is Contents.ScrollContents -> {
             item(
               span = { GridItemSpan(3) },
+              key = showcase.id,
               contentType = { "HorizontalScroll" },
             ) {
               HorizontalScroll(
@@ -98,6 +101,7 @@ fun ShowcaseList(
         showcase.footer?.let { footer ->
           item(
             span = { GridItemSpan(3) },
+            key = showcase.id+"_footer",
             contentType = { "ShowcaseFooter" },
           ) {
             ShowcaseFooter(

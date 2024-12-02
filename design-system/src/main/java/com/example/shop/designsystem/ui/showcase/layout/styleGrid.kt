@@ -36,6 +36,7 @@ private fun LazyGridScope.HighlightGrid(
   styles.firstOrNull()?.let { style ->
     item(
       span = { GridItemSpan(2) },
+      key = style.linkUrl,
       contentType = { "HighlightStyleItem" },
     ) {
       StyleItem(

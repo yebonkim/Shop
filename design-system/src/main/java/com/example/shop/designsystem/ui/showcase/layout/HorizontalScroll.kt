@@ -22,13 +22,17 @@ fun HorizontalScroll(
     modifier = modifier.fillMaxWidth(),
     contentPadding = PaddingValues(12.dp),
   ) {
-    item(key = "emptyItem") {
+    item(
+      key = "emptyItem",
+      contentType = { "emptyItem" },
+    ) {
       // To prevent unintended scrolling when the first item changes
     }
 
     items(
       items = goodsList,
       key = { goods -> goods.linkUrl },
+      contentType = { _ -> "goods" }
     ) { goods ->
       GoodsItem(
         modifier = Modifier.padding(horizontal = 2.dp),
