@@ -1,5 +1,6 @@
 package com.example.shop.feature.home
 
+import com.airbnb.mvrx.Fail
 import com.airbnb.mvrx.Success
 import com.airbnb.mvrx.test.MavericksTestRule
 import com.airbnb.mvrx.withState
@@ -23,7 +24,7 @@ import org.junit.ClassRule
 import org.junit.Test
 
 class HomeViewModelTest {
-  private var repositoryData = emptyList<Showcase>()
+  private var repositoryData = Result.success(emptyList<Showcase>())
 
   private val repository: ShowcaseRepository = mockk()
   private val getPartitionedShowcasesUseCase: GetPartitionedShowcasesUseCase =
@@ -40,7 +41,7 @@ class HomeViewModelTest {
     coEvery { repository.loadShowcases() } answers { repositoryData }
     coEvery { repository.update(any()) } answers {
       val showcases = firstArg<List<Showcase>>()
-      repositoryData = showcases
+      repositoryData = Result.success(showcases)
     }
   }
 
@@ -56,10 +57,24 @@ class HomeViewModelTest {
   }
 
   @Test
+  fun `viewModel 생성 시에 저장소에 데이터가 실패일 경우 실패 데이터를 얻는다`() {
+    repositoryData = Result.failure(Exception())
+    viewModel = HomeViewModel(
+      initialState = HomeUiState(),
+      getPartitionedShowcasesUseCase = getPartitionedShowcasesUseCase,
+      refreshShowcaseUseCase = refreshShowcaseUseCase
+    )
+    
+    withState(viewModel) { assert(it.showcases is Fail) }
+  }
+
+  @Test
   fun `viewModel 생성 시에 저장소에 데이터가 있을 경우 기본 파티션 정보에 따라 파티션 데이터를 얻는다`() {
-    repositoryData = listOf(
-      Fixtures.partitionableShowcase,
-      Fixtures.unpartitionableShowcase,
+    repositoryData = Result.success(
+      listOf(
+        Fixtures.partitionableShowcase,
+        Fixtures.unpartitionableShowcase,
+      )
     )
 
     viewModel = HomeViewModel(
@@ -82,7 +97,7 @@ class HomeViewModelTest {
 
   @Test
   fun `footer가 없는 showcase id로 footer 클릭 함수를 호출하면 데이터가 변경되지 않는다`() {
-    repositoryData = listOf(Fixtures.unpartitionableShowcase)
+    repositoryData = Result.success(listOf(Fixtures.unpartitionableShowcase))
     viewModel = HomeViewModel(
       initialState = HomeUiState(),
       getPartitionedShowcasesUseCase = getPartitionedShowcasesUseCase,
@@ -92,13 +107,13 @@ class HomeViewModelTest {
     viewModel.onClickFooter("INVALID ID")
 
     withState(viewModel) {
-      assertEquals(it.showcases, Success(repositoryData))
+      assertEquals(it.showcases, Success(repositoryData.getOrNull()))
     }
   }
 
   @Test
   fun `refresh footer를 가진 showcaseId로 footer 클릭 함수를 호출하면 컨텐츠 순서가 섞인다`() {
-    repositoryData = listOf(Fixtures.refreshableShowcase)
+    repositoryData = Result.success(listOf(Fixtures.refreshableShowcase))
     viewModel = HomeViewModel(
       initialState = HomeUiState(),
       getPartitionedShowcasesUseCase = getPartitionedShowcasesUseCase,
@@ -117,7 +132,7 @@ class HomeViewModelTest {
 
   @Test
   fun `more footer를 가졌으나 더 불러올 데이터가 없는 showcaseId로 footer 클릭 함수를 호출하면 컨텐츠가 그대로다`() {
-    repositoryData = listOf(Fixtures.emptyPartitionableShowcase)
+    repositoryData = Result.success(listOf(Fixtures.emptyPartitionableShowcase))
     viewModel = HomeViewModel(
       initialState = HomeUiState(),
       getPartitionedShowcasesUseCase = getPartitionedShowcasesUseCase,
@@ -136,7 +151,7 @@ class HomeViewModelTest {
 
   @Test
   fun `more footer를 가졌고 더 불러올 데이터가 있는 showcaseId로 footer 클릭 함수를 호출하면 데이터가 추가된다`() {
-    repositoryData = listOf(Fixtures.partitionableShowcase)
+    repositoryData = Result.success(listOf(Fixtures.partitionableShowcase))
     viewModel = HomeViewModel(
       initialState = HomeUiState(),
       getPartitionedShowcasesUseCase = getPartitionedShowcasesUseCase,
