@@ -7,7 +7,7 @@ import com.airbnb.mvrx.withState
 import com.example.shop.domain.Fixtures
 import com.example.shop.domain.ShowcaseRepository
 import com.example.shop.domain.model.Showcase
-import com.example.shop.domain.usecase.GetPartitionedShowcasesUseCase
+import com.example.shop.domain.usecase.LoadPartitionedShowcasesUseCase
 import com.example.shop.domain.usecase.RefreshShowcaseUseCase
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -27,8 +27,8 @@ class HomeViewModelTest {
   private var repositoryData = Result.success(emptyList<Showcase>())
 
   private val repository: ShowcaseRepository = mockk()
-  private val getPartitionedShowcasesUseCase: GetPartitionedShowcasesUseCase =
-    GetPartitionedShowcasesUseCase(
+  private val loadPartitionedShowcasesUseCase: LoadPartitionedShowcasesUseCase =
+    LoadPartitionedShowcasesUseCase(
       showcaseRepository = repository
     )
   private val refreshShowcaseUseCase: RefreshShowcaseUseCase = RefreshShowcaseUseCase(
@@ -49,7 +49,7 @@ class HomeViewModelTest {
   fun `viewModel 생성 시에 저장소에 데이터가 없을 경우 빈 데이터를 얻는다`() {
     viewModel = HomeViewModel(
       initialState = HomeUiState(),
-      getPartitionedShowcasesUseCase = getPartitionedShowcasesUseCase,
+      loadPartitionedShowcasesUseCase = loadPartitionedShowcasesUseCase,
       refreshShowcaseUseCase = refreshShowcaseUseCase
     )
 
@@ -61,10 +61,10 @@ class HomeViewModelTest {
     repositoryData = Result.failure(Exception())
     viewModel = HomeViewModel(
       initialState = HomeUiState(),
-      getPartitionedShowcasesUseCase = getPartitionedShowcasesUseCase,
+      loadPartitionedShowcasesUseCase = loadPartitionedShowcasesUseCase,
       refreshShowcaseUseCase = refreshShowcaseUseCase
     )
-    
+
     withState(viewModel) { assert(it.showcases is Fail) }
   }
 
@@ -79,7 +79,7 @@ class HomeViewModelTest {
 
     viewModel = HomeViewModel(
       initialState = HomeUiState(),
-      getPartitionedShowcasesUseCase = getPartitionedShowcasesUseCase,
+      loadPartitionedShowcasesUseCase = loadPartitionedShowcasesUseCase,
       refreshShowcaseUseCase = refreshShowcaseUseCase
     )
 
@@ -100,7 +100,7 @@ class HomeViewModelTest {
     repositoryData = Result.success(listOf(Fixtures.unpartitionableShowcase))
     viewModel = HomeViewModel(
       initialState = HomeUiState(),
-      getPartitionedShowcasesUseCase = getPartitionedShowcasesUseCase,
+      loadPartitionedShowcasesUseCase = loadPartitionedShowcasesUseCase,
       refreshShowcaseUseCase = refreshShowcaseUseCase
     )
 
@@ -116,7 +116,7 @@ class HomeViewModelTest {
     repositoryData = Result.success(listOf(Fixtures.refreshableShowcase))
     viewModel = HomeViewModel(
       initialState = HomeUiState(),
-      getPartitionedShowcasesUseCase = getPartitionedShowcasesUseCase,
+      loadPartitionedShowcasesUseCase = loadPartitionedShowcasesUseCase,
       refreshShowcaseUseCase = refreshShowcaseUseCase
     )
     val beforeRefresh =
@@ -135,7 +135,7 @@ class HomeViewModelTest {
     repositoryData = Result.success(listOf(Fixtures.emptyPartitionableShowcase))
     viewModel = HomeViewModel(
       initialState = HomeUiState(),
-      getPartitionedShowcasesUseCase = getPartitionedShowcasesUseCase,
+      loadPartitionedShowcasesUseCase = loadPartitionedShowcasesUseCase,
       refreshShowcaseUseCase = refreshShowcaseUseCase
     )
     val beforeMoreLoad =
@@ -154,7 +154,7 @@ class HomeViewModelTest {
     repositoryData = Result.success(listOf(Fixtures.partitionableShowcase))
     viewModel = HomeViewModel(
       initialState = HomeUiState(),
-      getPartitionedShowcasesUseCase = getPartitionedShowcasesUseCase,
+      loadPartitionedShowcasesUseCase = loadPartitionedShowcasesUseCase,
       refreshShowcaseUseCase = refreshShowcaseUseCase
     )
     val beforeMoreLoad =
@@ -172,7 +172,7 @@ class HomeViewModelTest {
   fun `url이 null인 경우 클릭 함수를 호출하면 이펙트가 발생하지 않는다`() = runTest {
     viewModel = HomeViewModel(
       initialState = HomeUiState(),
-      getPartitionedShowcasesUseCase = getPartitionedShowcasesUseCase,
+      loadPartitionedShowcasesUseCase = loadPartitionedShowcasesUseCase,
       refreshShowcaseUseCase = refreshShowcaseUseCase
     )
     val uiEffect = viewModel.uiEffect.receiveAsFlow()
@@ -188,7 +188,7 @@ class HomeViewModelTest {
   fun `유효한 url이 있는 경우 클릭 함수를 호출하면 네비게이션 이펙트가 발생하지 않는다`() = runTest {
     viewModel = HomeViewModel(
       initialState = HomeUiState(),
-      getPartitionedShowcasesUseCase = getPartitionedShowcasesUseCase,
+      loadPartitionedShowcasesUseCase = loadPartitionedShowcasesUseCase,
       refreshShowcaseUseCase = refreshShowcaseUseCase
     )
     val uiEffect = viewModel.uiEffect.receiveAsFlow()
@@ -205,7 +205,7 @@ class HomeViewModelTest {
   fun `유효하지 않은 url이 있는 경우 클릭 함수를 호출하면 네비게이션 이펙트가 발생한다`() = runTest {
     viewModel = HomeViewModel(
       initialState = HomeUiState(),
-      getPartitionedShowcasesUseCase = getPartitionedShowcasesUseCase,
+      loadPartitionedShowcasesUseCase = loadPartitionedShowcasesUseCase,
       refreshShowcaseUseCase = refreshShowcaseUseCase
     )
     val uiEffect = viewModel.uiEffect.receiveAsFlow()

@@ -14,7 +14,7 @@ import com.airbnb.mvrx.hilt.hiltMavericksViewModelFactory
 import com.example.shop.domain.model.FooterType
 import com.example.shop.domain.model.Partitionable
 import com.example.shop.domain.model.Showcase
-import com.example.shop.domain.usecase.GetPartitionedShowcasesUseCase
+import com.example.shop.domain.usecase.LoadPartitionedShowcasesUseCase
 import com.example.shop.domain.usecase.RefreshShowcaseUseCase
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -34,11 +34,11 @@ sealed interface HomeUiEffect {
 
 class HomeViewModel @AssistedInject constructor(
   @Assisted initialState: HomeUiState,
-  private val getPartitionedShowcasesUseCase: GetPartitionedShowcasesUseCase,
+  private val loadPartitionedShowcasesUseCase: LoadPartitionedShowcasesUseCase,
   private val refreshShowcaseUseCase: RefreshShowcaseUseCase,
 ) : MavericksViewModel<HomeUiState>(initialState) {
 
-  val uiEffect: Channel<HomeUiEffect> = Channel<HomeUiEffect>()
+  val uiEffect: Channel<HomeUiEffect> = Channel()
 
   init {
     loadData()
@@ -53,7 +53,7 @@ class HomeViewModel @AssistedInject constructor(
   private fun loadData(partitionInfos: Map<String, Int>) {
     viewModelScope.launch {
       setState { copy(showcases = Loading(value = showcases())) }
-      getPartitionedShowcasesUseCase(partitionInfos).fold(
+      loadPartitionedShowcasesUseCase(partitionInfos).fold(
         onSuccess = { setState { copy(showcases = Success(it)) } },
         onFailure = { setState { copy(showcases = Fail(it)) } }
       )

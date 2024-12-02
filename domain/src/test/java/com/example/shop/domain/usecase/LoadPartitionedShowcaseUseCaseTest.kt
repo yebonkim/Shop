@@ -12,12 +12,12 @@ import io.kotest.matchers.shouldNotBe
 import io.mockk.coEvery
 import io.mockk.mockk
 
-class GetPartitionedShowcaseUseCaseTest : BehaviorSpec() {
+class LoadPartitionedShowcaseUseCaseTest : BehaviorSpec() {
   override fun isolationMode(): IsolationMode = IsolationMode.InstancePerLeaf
 
   private var repositoryData = Result.success(emptyList<Showcase>())
   private val repository: ShowcaseRepository = mockk()
-  private val useCase: GetPartitionedShowcasesUseCase = GetPartitionedShowcasesUseCase(
+  private val useCase: LoadPartitionedShowcasesUseCase = LoadPartitionedShowcasesUseCase(
     showcaseRepository = repository
   )
 

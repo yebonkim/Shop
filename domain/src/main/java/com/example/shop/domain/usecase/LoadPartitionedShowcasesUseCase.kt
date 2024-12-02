@@ -5,7 +5,7 @@ import com.example.shop.domain.model.Partitionable
 import com.example.shop.domain.model.Showcase
 import com.example.shop.domain.model.copy
 
-class GetPartitionedShowcasesUseCase(
+class LoadPartitionedShowcasesUseCase(
   private val showcaseRepository: ShowcaseRepository,
 ) {
   suspend operator fun invoke(

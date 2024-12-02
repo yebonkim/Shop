@@ -1,7 +1,7 @@
 package com.example.shop.di
 
 import com.example.shop.domain.ShowcaseRepository
-import com.example.shop.domain.usecase.GetPartitionedShowcasesUseCase
+import com.example.shop.domain.usecase.LoadPartitionedShowcasesUseCase
 import com.example.shop.domain.usecase.RefreshShowcaseUseCase
 import dagger.Module
 import dagger.Provides
@@ -12,10 +12,10 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object UseCaseModule {
   @Provides
-  fun provideGetPartitionedShowcasesUseCase(
+  fun provideLoadPartitionedShowcasesUseCase(
     showcaseRepository: ShowcaseRepository
-  ): GetPartitionedShowcasesUseCase {
-    return GetPartitionedShowcasesUseCase(showcaseRepository)
+  ): LoadPartitionedShowcasesUseCase {
+    return LoadPartitionedShowcasesUseCase(showcaseRepository)
   }
 
   @Provides
