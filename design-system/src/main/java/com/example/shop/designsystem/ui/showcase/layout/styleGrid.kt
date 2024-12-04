@@ -10,11 +10,11 @@ import kotlinx.collections.immutable.ImmutableList
 
 fun LazyGridScope.styleGrid(
   styles: ImmutableList<ContentsItemType.Style>,
-  onClickStyle: (ContentsItemType.Style) -> Unit,
+  navigateToDetail: (String) -> Unit,
 ) {
   HighlightGrid(
     styles = styles.take(3),
-    onClickStyle = onClickStyle,
+    navigateToDetail = navigateToDetail,
   )
 
   items(
@@ -24,14 +24,14 @@ fun LazyGridScope.styleGrid(
   ) { style ->
     StyleItem(
       style = style,
-      onClick = { onClickStyle(style) },
+      onClick = { navigateToDetail(style.linkUrl) },
     )
   }
 }
 
 private fun LazyGridScope.HighlightGrid(
   styles: List<ContentsItemType.Style>,
-  onClickStyle: (ContentsItemType.Style) -> Unit,
+  navigateToDetail: (String) -> Unit,
 ) {
   styles.firstOrNull()?.let { style ->
     item(
@@ -41,7 +41,7 @@ private fun LazyGridScope.HighlightGrid(
     ) {
       StyleItem(
         style = style,
-        onClick = { onClickStyle(style) },
+        onClick = { navigateToDetail(style.linkUrl) },
       )
     }
   }
@@ -54,7 +54,7 @@ private fun LazyGridScope.HighlightGrid(
       styles.drop(1).take(2).forEach { style ->
         StyleItem(
           style = style,
-          onClick = { onClickStyle(style) },
+          onClick = { navigateToDetail(style.linkUrl) },
         )
       }
     }

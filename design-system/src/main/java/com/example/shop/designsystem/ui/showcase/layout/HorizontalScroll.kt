@@ -16,7 +16,7 @@ import kotlinx.collections.immutable.ImmutableList
 fun HorizontalScroll(
   modifier: Modifier = Modifier,
   goodsList: ImmutableList<ContentsItemType.Goods>,
-  onClickItem: (ContentsItemType.Goods) -> Unit = {},
+  navigateToDetail: (String) -> Unit = {},
 ) {
   LazyRow(
     modifier = modifier.fillMaxWidth(),
@@ -37,7 +37,7 @@ fun HorizontalScroll(
       GoodsItem(
         modifier = Modifier.padding(horizontal = 2.dp),
         goods = goods,
-        onClick = { onClickItem(goods) },
+        onClick = { navigateToDetail(goods.linkUrl) },
       )
     }
   }

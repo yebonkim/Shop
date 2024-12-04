@@ -28,7 +28,7 @@ fun BannerPager(
   modifier: Modifier = Modifier,
   banners: ImmutableList<ContentsItemType.Banner>,
   autoScroll: Boolean = true,
-  onClickBanner: (ContentsItemType.Banner) -> Unit = {},
+  navigateToDetail: (String) -> Unit = {},
 ) {
   val pagerState = rememberPagerState(pageCount = { Int.MAX_VALUE })
   val coroutineScope = rememberCoroutineScope()
@@ -50,7 +50,7 @@ fun BannerPager(
       BannerItem(
         imageModifier = Modifier.parallax(pagerState, pageIdx),
         banner = banners[pageIdx % banners.size],
-        onClick = { onClickBanner(banners[pageIdx % banners.size]) },
+        onClick = { navigateToDetail(banners[pageIdx % banners.size].linkUrl) },
       )
     }
     PagerIndicator(

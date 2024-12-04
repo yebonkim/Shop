@@ -23,7 +23,7 @@ fun ShowcaseList(
   modifier: Modifier = Modifier,
   isLoading: Boolean,
   showcases: ImmutableList<Showcase>,
-  onClickLink: (String?) -> Unit,
+  navigateToDetail: (String?) -> Unit,
   onClickFooter: (String) -> Unit,
 ) {
   Box(
@@ -44,7 +44,7 @@ fun ShowcaseList(
           ) {
             ShowcaseHeader(
               header = header,
-              onClickLink = { onClickLink(header.linkUrl) },
+              onClickLink = navigateToDetail::invoke,
             )
           }
         }
@@ -57,7 +57,7 @@ fun ShowcaseList(
             ) {
               BannerPager(
                 banners = content.items,
-                onClickBanner = { onClickLink(it.linkUrl) },
+                navigateToDetail = navigateToDetail::invoke,
               )
             }
           }
@@ -65,7 +65,7 @@ fun ShowcaseList(
           is Contents.GridContents -> {
             goodsGrid(
               goodsList = content.items,
-              onClickGoods = { onClickLink(it.linkUrl) },
+              navigateToDetail = navigateToDetail::invoke,
             )
           }
 
@@ -77,7 +77,7 @@ fun ShowcaseList(
             ) {
               HorizontalScroll(
                 goodsList = content.items,
-                onClickItem = { onClickLink(it.linkUrl) },
+                navigateToDetail = navigateToDetail::invoke,
               )
             }
           }
@@ -85,7 +85,7 @@ fun ShowcaseList(
           is Contents.StyleContents -> {
             styleGrid(
               styles = content.items,
-              onClickStyle = { onClickLink(it.linkUrl) },
+              navigateToDetail = navigateToDetail::invoke,
             )
           }
 

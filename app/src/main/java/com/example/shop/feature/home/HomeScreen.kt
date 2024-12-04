@@ -3,7 +3,6 @@ package com.example.shop.feature.home
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -19,7 +18,6 @@ import com.airbnb.mvrx.compose.mavericksViewModel
 import com.airbnb.mvrx.withState
 import com.example.shop.designsystem.ui.component.ErrorPage
 import com.example.shop.designsystem.ui.showcase.ShowcaseList
-import com.example.shop.designsystem.ui.component.LoadingProgressIndicator
 import com.example.shop.domain.model.Showcase
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -51,7 +49,7 @@ fun HomeScreen(
       state.showcases is Fail -> {
         ErrorPage(
           modifier = Modifier.padding(padding),
-          onClickRetry = { viewModel.loadData() }
+          onClickRetry = viewModel::loadData
         )
       }
       else -> {
@@ -59,8 +57,8 @@ fun HomeScreen(
           modifier = Modifier.padding(padding),
           isLoading = state.showcases is Loading,
           showcases = showcases ?: emptyList<Showcase>().toImmutableList(),
-          onClickLink = { link -> viewModel.onClickLink(link) },
-          onClickFooter = { showcaseId -> viewModel.onClickFooter(showcaseId) }
+          navigateToDetail = viewModel::onClickLink,
+          onClickFooter = viewModel::onClickFooter
         )
       }
     }

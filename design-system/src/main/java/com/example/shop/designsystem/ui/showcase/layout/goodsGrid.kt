@@ -11,7 +11,7 @@ import kotlinx.collections.immutable.ImmutableList
 
 fun LazyGridScope.goodsGrid(
   goodsList: ImmutableList<ContentsItemType.Goods>,
-  onClickGoods: (ContentsItemType.Goods) -> Unit = {},
+  navigateToDetail: (String) -> Unit = {},
 ) {
   items(
     items = goodsList,
@@ -21,7 +21,7 @@ fun LazyGridScope.goodsGrid(
     GoodsItem(
       modifier = Modifier.padding(2.dp),
       goods = goods,
-      onClick = { onClickGoods(goods) },
+      onClick = { navigateToDetail(goods.linkUrl) },
     )
   }
 }
